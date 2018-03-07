@@ -1,0 +1,61 @@
+﻿<Window x:Class="BSK_Encryption.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BSK_Encryption"
+        xmlns:c="clr-namespace:BSK_Encryption.Converters"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <c:CipherConverter x:Key="CipherConverter"/>
+        <c:BlockConverter x:Key="BlockConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Source Input-->
+        <StackPanel Grid.Row="0" Grid.Column="0" Margin="3" Orientation="Horizontal">
+            <Label Margin="3">Input File:</Label>
+            <TextBox Width="200" Margin="3" VerticalAlignment="Center" Text="{Binding InputPath}"></TextBox>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button>Browse</Button>
+            </StackPanel>
+        </StackPanel>
+        
+        <!--Destination Input-->
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="3" Orientation="Horizontal">
+            <Label Margin="3">Output File:</Label>
+            <TextBox Width="200" Margin="3" VerticalAlignment="Center" Text="{Binding OutputPath}"></TextBox>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button>Browse</Button>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+            <Label>Cipher Mode:</Label>
+            <ComboBox SelectedIndex="{Binding Cipher ,Converter={StaticResource CipherConverter}}">
+                <ComboBoxItem IsSelected="True" >ECB</ComboBoxItem>
+                <ComboBoxItem >CBC</ComboBoxItem>
+                <ComboBoxItem >CFB</ComboBoxItem>
+                <ComboBoxItem >OFB</ComboBoxItem>
+            </ComboBox>
+            <Label>Block Size:</Label>
+            <ComboBox SelectedValue="{Binding BlockSize , Converter={StaticResource BlockConverter}}">
+                <ComboBoxItem IsSelected="True" >128</ComboBoxItem>
+                <ComboBoxItem >192</ComboBoxItem>
+                <ComboBoxItem >256</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+    </Grid>
+</Window>

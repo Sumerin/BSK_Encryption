@@ -5,57 +5,115 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BSK_Encryption"
         xmlns:c="clr-namespace:BSK_Encryption.Converters"
+        xmlns:valid="clr-namespace:BSK_Encryption.Validators"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="600" MinHeight="350" MaxHeight="350"  MinWidth="400" MaxWidth="600">
     <Window.Resources>
         <c:CipherConverter x:Key="CipherConverter"/>
         <c:BlockConverter x:Key="BlockConverter"/>
     </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
 
-        <!--Source Input-->
-        <StackPanel Grid.Row="0" Grid.Column="0" Margin="3" Orientation="Horizontal">
-            <Label Margin="3">Input File:</Label>
-            <TextBox Width="200" Margin="3" VerticalAlignment="Center" Text="{Binding InputPath}"></TextBox>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button>Browse</Button>
-            </StackPanel>
-        </StackPanel>
-        
-        <!--Destination Input-->
-        <StackPanel Grid.Row="1" Grid.Column="0" Margin="3" Orientation="Horizontal">
-            <Label Margin="3">Output File:</Label>
-            <TextBox Width="200" Margin="3" VerticalAlignment="Center" Text="{Binding OutputPath}"></TextBox>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button>Browse</Button>
-            </StackPanel>
-        </StackPanel>
+        <GroupBox Grid.Row="0"  Header="User Input" Margin="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.Resources>
+                    <!--Style for red border-->
+                    <Style x:Key="CustomTextBoxTextStyle" TargetType="TextBox">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TextBox}">
+                                    <Border x:Name="bg" BorderBrush="#FF825E5E" BorderThickness="1">
+                                        <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="Validation.HasError" Value="True">
+                                            <Trigger.Setters>
+                                                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors)[0].ErrorContent}"/>
+                                                <Setter Property="BorderThickness" TargetName="bg" Value="2"/>
+                                                <Setter Property="BorderBrush" TargetName="bg" Value="Red"/>
+                                            </Trigger.Setters>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Grid.Resources>
 
-        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
-            <Label>Cipher Mode:</Label>
-            <ComboBox SelectedIndex="{Binding Cipher ,Converter={StaticResource CipherConverter}}">
-                <ComboBoxItem IsSelected="True" >ECB</ComboBoxItem>
-                <ComboBoxItem >CBC</ComboBoxItem>
-                <ComboBoxItem >CFB</ComboBoxItem>
-                <ComboBoxItem >OFB</ComboBoxItem>
-            </ComboBox>
-            <Label>Block Size:</Label>
-            <ComboBox SelectedValue="{Binding BlockSize , Converter={StaticResource BlockConverter}}">
-                <ComboBoxItem IsSelected="True" >128</ComboBoxItem>
-                <ComboBoxItem >192</ComboBoxItem>
-                <ComboBoxItem >256</ComboBoxItem>
-            </ComboBox>
+
+                <!--Source Input-->
+                <StackPanel Grid.Row="0" Grid.Column="0" Margin="3" Orientation="Horizontal">
+                    <Label Margin="3">Input File:</Label>
+                    <TextBox Width="Auto" MinWidth="300" Margin="3" VerticalAlignment="Center" Style="{StaticResource CustomTextBoxTextStyle}" >
+                        <TextBox.Text>
+                            <Binding Path="InputPath" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <valid:InputPathValidator/>
+                                    <valid:TextValidator/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button x:Name="source"  Click="BrowseButton_Click">Browse</Button>
+                    </StackPanel>
+                </StackPanel>
+
+                <!--Destination Input-->
+                <StackPanel Grid.Row="1" Grid.Column="0" Margin="3" Orientation="Horizontal">
+                    <Label Margin="3">Output File:</Label>
+                    <TextBox Width="Auto" MinWidth="300" Margin="3" VerticalAlignment="Center">
+                        <TextBox.Text>
+                            <Binding Path="OutputPath" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <valid:OutputPathValidator/>
+                                    <valid:TextValidator/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button  x:Name="dest" Click="BrowseButton_Click">Browse</Button>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+                    <Label>Cipher Mode:</Label>
+                    <ComboBox SelectedIndex="{Binding Cipher ,Converter={StaticResource CipherConverter}}">
+                        <ComboBoxItem IsSelected="True" >ECB</ComboBoxItem>
+                        <ComboBoxItem >CBC</ComboBoxItem>
+                        <ComboBoxItem >CFB</ComboBoxItem>
+                        <ComboBoxItem >OFB</ComboBoxItem>
+                    </ComboBox>
+                    <Label>Block Size:</Label>
+                    <ComboBox SelectedValue="{Binding BlockSize , Converter={StaticResource BlockConverter}}">
+                        <ComboBoxItem IsSelected="True" >128</ComboBoxItem>
+                        <ComboBoxItem >192</ComboBoxItem>
+                        <ComboBoxItem >256</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="Feedback" Margin="5">
+            <ProgressBar Height="20" ></ProgressBar>
+        </GroupBox>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+            <Button>Start</Button>
         </StackPanel>
     </Grid>
 </Window>

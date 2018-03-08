@@ -108,6 +108,7 @@
                 </StackPanel>
             </Grid>
         </GroupBox>
+        <!-- ProgresBar hehe-->
         <GroupBox Grid.Row="1" Header="Feedback" Margin="5">
             <ProgressBar Height="20" ></ProgressBar>
         </GroupBox>

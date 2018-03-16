@@ -1,6 +1,8 @@
-﻿using Microsoft.Win32;
+﻿using BSK_Encryption.Encryption;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 
 namespace BSK_Encryption
 {
@@ -35,6 +38,47 @@ namespace BSK_Encryption
         }
 
         #region Event Handler 
+
+        /// <summary>
+        /// Temporary start method.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Start_Click(object sender, RoutedEventArgs e)
+        {
+            var aes = new AesEncryptionApi(viewModel.Cipher, viewModel.BlockSize, 32);
+            aes.Initialize();
+
+            using (var output = File.Open(viewModel.OutputPath, FileMode.Create))
+            {
+
+                using (var xmlOutput = XmlWriter.Create(output))
+                {
+                    xmlOutput.WriteStartDocument();
+                    xmlOutput.WriteStartElement("Data");
+
+                    aes.WriteToXml(xmlOutput);
+
+                    xmlOutput.WriteStartElement("Content");
+                    xmlOutput.WriteString("");
+                    xmlOutput.Flush();
+                    using (var source = File.Open(viewModel.InputPath, FileMode.Open))
+                    {
+                        using (var sourceEncypted = aes.EncrypteStream(source))
+                        {
+                            sourceEncypted.CopyTo(output);
+                        }
+                    }
+                    xmlOutput.WriteEndElement();
+
+                    xmlOutput.WriteEndElement();
+                    xmlOutput.WriteEndDocument();
+
+                }
+            }
+
+        }
+
         /// <summary>
         /// Handles event on both browser buttons
         /// </summary>
@@ -49,7 +93,7 @@ namespace BSK_Encryption
                 {
                     viewModel.InputPath = openFileDialog.FileName;
                 }
-                else if(sender.Equals(dest))
+                else if (sender.Equals(dest))
                 {
                     viewModel.OutputPath = openFileDialog.FileName;
                 }
@@ -63,5 +107,7 @@ namespace BSK_Encryption
 
         #region Methods
         #endregion
+
+
     }
 }

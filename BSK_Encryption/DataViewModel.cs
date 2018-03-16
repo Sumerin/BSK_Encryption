@@ -4,18 +4,13 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace BSK_Encryption
 {
-    public enum CipherMode
-    {
-        ECB,
-        CBC,
-        CFB,
-        OFB
-    }
 
     internal class DataViewModel : INotifyPropertyChanged
     {

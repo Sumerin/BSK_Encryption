@@ -4,33 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace BSK_Encryption.Encryption
 {
     public class AesEncryptionApi
     {
-        #region Const
-        /// <summary>
-        /// Folder for keys.
-        /// </summary>
-        private readonly string keyFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "BSK_Encryption");
-        /// <summary>
-        /// Subfolder for private keys.
-        /// </summary>
-        private const string privateKeyFolder = "private";
-        /// <summary>
-        /// SubFolder for public keys.
-        /// </summary>
-        private const string publicKeyFolder = "public";
-        /// <summary>
-        /// Salt for genereting byte of Array.
-        /// </summary>
-        private readonly byte[] Salt = new byte[] { 12, 20, 30, 45, 50, 60, 70, 80 };
-        #endregion
-
         #region field
         private CipherMode cipherMode;
         private byte[] key;
@@ -41,6 +20,23 @@ namespace BSK_Encryption.Encryption
         /// List of approved users.
         /// </summary>
         List<User> userList = new List<User>();
+
+        /// <summary>
+        /// Reads the header and prepare Aes algorithm.
+        /// </summary>
+        /// <param name="inputPath">Encrypted file</param>
+        /// <param name="user">Authorized User</param>
+        /// <returns></returns>
+        internal static AesEncryptionApi FromXml(string inputPath, string user)
+        {
+            var aes = new AesEncryptionApi();
+            using (var reader = XmlReader.Create(inputPath))
+            {
+                //reader.ReadContentAsString()
+                //aes.cipherMode = 
+            }
+            return aes;
+        }
         #endregion
 
         #region Constructors
@@ -49,6 +45,10 @@ namespace BSK_Encryption.Encryption
             this.cipherMode = ciphermode;
             this.blockSize = blockSize;
             this.keySize = keySize;
+        }
+
+        private AesEncryptionApi()
+        {
         }
         #endregion
 
@@ -77,7 +77,7 @@ namespace BSK_Encryption.Encryption
         private byte[] GenerateByteArray(string keypharse, int size)
         {
             const int Iterations = 300;
-            var keyGenerator = new Rfc2898DeriveBytes(keypharse, Salt, Iterations);
+            var keyGenerator = new Rfc2898DeriveBytes(keypharse, Const.SALT, Iterations);
             return keyGenerator.GetBytes(size);
         }
 
@@ -89,13 +89,20 @@ namespace BSK_Encryption.Encryption
         /// <returns><c>true</c> if user exists, otherwise <c>false</c> </returns>
         public bool addUser(string name)
         {
-            string userPath = Path.Combine(keyFolder, publicKeyFolder, name);
+            string userPath = Path.Combine(Const.KEY_FOLDER, Const.PUBLIC_KEY_FOLDER, name);
 
             if (Directory.Exists(userPath))
             {
                 userList.Add(new User(name));
                 return true;
             }
+            //temporary
+            //else
+            //{
+            //    Directory.CreateDirectory(userPath);
+            //    userList.Add(new User(name));
+            //    return true;
+            //}
             return false;
         }
 
@@ -110,7 +117,16 @@ namespace BSK_Encryption.Encryption
             output.WriteElementString("KeySize", keySize.ToString());
             output.WriteElementString("BlockSize", blockSize.ToString());
             output.WriteElementString("CipherMode", cipherMode.ToString());
-            output.WriteElementString("IV", iV.ToString());
+
+            string iVConverted = string.Join(".", new List<byte>(iV).ConvertAll(i => ((int)i).ToString()).ToArray());
+
+            output.WriteElementString("IV", iVConverted);
+
+            foreach (User user in userList)
+            {
+                user.WriteKey(key);
+                user.WriteToXml(output);
+            }
 
             output.WriteEndElement();
         }

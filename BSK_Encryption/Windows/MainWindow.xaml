@@ -1,0 +1,29 @@
+﻿<Window x:Class="BSK_Encryption.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BSK_Encryption"
+        mc:Ignorable="d"
+        Title="BSK Project 1" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <GroupBox Header="BSK Encryption" BorderThickness="2" BorderBrush="Black" Grid.Column="1" Grid.Row="1" >
+            <StackPanel Margin="10">
+                <Button Margin="10" Click="Encrypte_Click">Encrypte</Button>
+                <Button Margin="10" Click="Decrypte_Click">Decrypte</Button>
+                <Button Margin="10" Click="Register_Click">Register User</Button>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Window>

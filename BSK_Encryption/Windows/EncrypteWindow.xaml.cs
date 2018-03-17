@@ -1,37 +1,27 @@
 ﻿using BSK_Encryption.Encryption;
+using BSK_Encryption.ViewModels;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Xml;
 
-namespace BSK_Encryption
+namespace BSK_Encryption.Windows
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class EncrypteWindow : Window
     {
         /// <summary>
         /// Container for binding values
         /// </summary>
-        DataViewModel viewModel;
+        EncrypteDataViewModel viewModel;
 
-        public MainWindow()
+        public EncrypteWindow()
         {
-            viewModel = new DataViewModel();
+            viewModel = new EncrypteDataViewModel();
             this.DataContext = viewModel;
 
             InitializeComponent();
@@ -48,7 +38,15 @@ namespace BSK_Encryption
         {
             var aes = new AesEncryptionApi(viewModel.Cipher, viewModel.BlockSize, 32);
             aes.Initialize();
-
+            if(viewModel.Users==null || viewModel.Users?.Count==0)
+            {
+                MessageBox.Show("No Recipient was assigned","Error",MessageBoxButton.OK);
+                return ;
+            }
+            foreach (string nickname in viewModel.Users)
+            {
+                aes.addUser(nickname);
+            }
             using (var output = File.Open(viewModel.OutputPath, FileMode.Create))
             {
 
@@ -103,11 +101,20 @@ namespace BSK_Encryption
                 }
             }
         }
+
+
+        private void AddUsers_Click(object sender, RoutedEventArgs e)
+        {
+            var userWindow = new UsersWindow() { Owner = this };
+            if (userWindow.ShowDialog() == true)
+            {
+                this.viewModel.Users = userWindow.users;
+            }
+        }
         #endregion
 
         #region Methods
         #endregion
-
 
     }
 }

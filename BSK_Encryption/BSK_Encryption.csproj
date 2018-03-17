@@ -55,9 +55,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Const.cs" />
+    <Compile Include="ViewModels\UserGridElement.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="Windows\DecrypteWindow.xaml.cs">
+      <DependentUpon>DecrypteWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Encryption\AesEncrytpionApi.cs" />
+    <Compile Include="Encryption\User.cs" />
+    <Compile Include="Windows\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Validators\TextValidator.cs" />
-    <Page Include="MainWindow.xaml">
+    <Compile Include="ViewModels\DecrypteDataViewModel.cs" />
+    <Compile Include="ViewModels\EncrypteDataViewModel.cs" />
+    <Compile Include="Windows\RegisterWindow.xaml.cs">
+      <DependentUpon>RegisterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\UsersWindow.xaml.cs">
+      <DependentUpon>UsersWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Windows\DecrypteWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\EncrypteWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -67,13 +89,25 @@
     </Compile>
     <Compile Include="Converters\BlockConverter.cs" />
     <Compile Include="Converters\CipherConverter.cs" />
-    <Compile Include="DataViewModel.cs" />
+    <Compile Include="ViewModels\DataViewModel.cs" />
     <Compile Include="Validators\OutputPathValidator.cs" />
     <Compile Include="Validators\InputPathValidator.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Windows\EncrypteWindow.xaml.cs">
+      <DependentUpon>EncrypteWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\RegisterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\UsersWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

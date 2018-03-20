@@ -1,0 +1,106 @@
+﻿<Window x:Class="Proj2.WorkerWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Proj2"
+        mc:Ignorable="d"
+        Title="WorkerWin" Height="400" Width="800">
+    <Window.Resources>
+        <DataTemplate x:Key="Number">
+            <TextBox x:Name="num" Text="{Binding Number}" Width="20" PreviewTextInput="NumberValidationTextBox"  />
+        </DataTemplate>
+        <DataTemplate x:Key="Basket">
+            <Button Content="Dodaj do koszyka" Click="DodajDoKoszyka" />
+        </DataTemplate>
+        <DataTemplate x:Key="EditProd">
+            <Button Content="Edytuj" Click="EditProduct" />
+        </DataTemplate>
+        <DataTemplate x:Key="Delete">
+            <Button Content="Usuń" />
+        </DataTemplate>
+        <DataTemplate x:Key="Edit">
+            <Button Content="Edytuj" Click="ShowEdit" />
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <TabControl HorizontalAlignment="Left" Height="369" VerticalAlignment="Top" Width="792">
+            <TabItem Header="Produkty">
+                <Grid Background="#FFE5E5E5">
+                    <Grid HorizontalAlignment="Left" Height="321" Margin="10,10,0,0" VerticalAlignment="Top" Width="569">
+                        <ListView x:Name="products" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="569">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
+                                    <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Name}"/>
+                                    <GridViewColumn Header="Cena" DisplayMemberBinding="{Binding Price}"/>
+                                    <GridViewColumn Header="Dostępność" DisplayMemberBinding="{Binding Availability}"/>
+                                    <GridViewColumn Header="Ilość" CellTemplate="{StaticResource Number}"/>
+                                    <GridViewColumn Header="" CellTemplate="{StaticResource Basket}"/>
+                                    <GridViewColumn Header="" CellTemplate="{StaticResource EditProd}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="621,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <Label Content="Wpisz szukany produkt" HorizontalAlignment="Left" Margin="621,8,0,0" VerticalAlignment="Top" Width="138"/>
+                    <Button Content="Szukaj" HorizontalAlignment="Left" Margin="639,64,0,0" VerticalAlignment="Top" Width="75"/>
+                    <Button Content="Dodaj Produkt" HorizontalAlignment="Left" Margin="639,106,0,0" VerticalAlignment="Top" Width="88"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Zamówienia">
+                <Grid Background="#FFE5E5E5">
+                    <Grid HorizontalAlignment="Left" Height="116" Margin="10,10,0,0" VerticalAlignment="Top" Width="766">
+                        <ListView x:Name="orders" HorizontalAlignment="Left" Height="116" VerticalAlignment="Top" Width="766" MouseDoubleClick="ShowOrder">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
+                                    <GridViewColumn Header="Klient" DisplayMemberBinding="{Binding Client}"/>
+                                    <GridViewColumn Header="Adres" DisplayMemberBinding="{Binding Adress}"/>
+                                    <GridViewColumn Header="Stan" DisplayMemberBinding="{Binding State}"/>
+                                    <GridViewColumn Header="" CellTemplate="{StaticResource Edit}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                    <Grid HorizontalAlignment="Left" Height="162" Margin="10,169,0,0" VerticalAlignment="Top" Width="766">
+                        <ListView x:Name="orderProducts" HorizontalAlignment="Left" Height="162" VerticalAlignment="Top" Width="766" RenderTransformOrigin="0.505,0.267">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
+                                    <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Name}"/>
+                                    <GridViewColumn Header="Cena" DisplayMemberBinding="{Binding Price}"/>
+                                    <GridViewColumn Header="Ilość" DisplayMemberBinding="{Binding Number}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Koszyk" >
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="55*"/>
+                        <ColumnDefinition Width="338*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid HorizontalAlignment="Left" Height="321" Margin="10,10,0,0" VerticalAlignment="Top" Width="569" Grid.ColumnSpan="2">
+                        <ListView x:Name="basket" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="569">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
+                                    <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Name}"/>
+                                    <GridViewColumn Header="Dostępność" DisplayMemberBinding="{Binding Availability}"/>
+                                    <GridViewColumn Header="Ilość" CellTemplate="{StaticResource Number}"/>
+                                    <GridViewColumn Header="" CellTemplate="{StaticResource Delete}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                    <Button Content="Złóż zamówienie" HorizontalAlignment="Left" Margin="527.972,11,0,0" VerticalAlignment="Top" Width="111" Grid.Column="1"/>
+                    <Button Content="Wyczyść" HorizontalAlignment="Left" Margin="543.972,36,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="ClearBasket"/>
+                    <Label Content="Suma: " HorizontalAlignment="Left" Margin="507.972,109,0,0" VerticalAlignment="Top" Height="24" Width="131" Grid.Column="1"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

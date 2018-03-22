@@ -67,11 +67,7 @@ namespace BSK_Encryption.Windows
                             sourceEncypted.CopyTo(output);
                         }
                     }
-                    xmlOutput.WriteEndElement();
-
-                    xmlOutput.WriteEndElement();
                     xmlOutput.WriteEndDocument();
-
                 }
             }
 

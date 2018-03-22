@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Const.cs" />
+    <Compile Include="Encryption\Conversion.cs" />
     <Compile Include="ViewModels\UserGridElement.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="Windows\DecrypteWindow.xaml.cs">

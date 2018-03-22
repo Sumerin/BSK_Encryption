@@ -27,14 +27,37 @@ namespace BSK_Encryption.Encryption
         /// <param name="inputPath">Encrypted file</param>
         /// <param name="user">Authorized User</param>
         /// <returns></returns>
-        internal static AesEncryptionApi FromXml(string inputPath, string user)
+        internal static AesEncryptionApi FromXml(XmlReader reader)
         {
             var aes = new AesEncryptionApi();
-            using (var reader = XmlReader.Create(inputPath))
+            reader.ReadToFollowing("KeySize");
+            aes.keySize = reader.ReadElementContentAsInt();
+            
+            aes.blockSize = reader.ReadElementContentAsInt();
+            
+            aes.cipherMode = Conversion.CipherFromString(reader.ReadElementContentAsString());
+            
+            aes.iV = Conversion.ByteArrayFromString(reader.ReadElementContentAsString());
+
+
+            do
             {
-                //reader.ReadContentAsString()
-                //aes.cipherMode = 
+                if (reader.NodeType == XmlNodeType.Element)
+                {
+                    if (reader.Name == "User")
+                    {
+                        var user = User.FromXml(reader);
+                        aes.userList.Add(user);
+                    }
+                    else if (reader.Name == "Content")
+                    {
+                        break;
+                    }
+                }
             }
+            while (reader.Read());
+
+
             return aes;
         }
         #endregion
@@ -96,13 +119,6 @@ namespace BSK_Encryption.Encryption
                 userList.Add(new User(name));
                 return true;
             }
-            //temporary
-            //else
-            //{
-            //    Directory.CreateDirectory(userPath);
-            //    userList.Add(new User(name));
-            //    return true;
-            //}
             return false;
         }
 
@@ -122,12 +138,13 @@ namespace BSK_Encryption.Encryption
 
             output.WriteElementString("IV", iVConverted);
 
+            output.WriteStartElement("Users");
             foreach (User user in userList)
             {
-                user.WriteKey(key);
                 user.WriteToXml(output);
             }
 
+            output.WriteEndElement();
             output.WriteEndElement();
         }
 
@@ -145,7 +162,32 @@ namespace BSK_Encryption.Encryption
 
             ICryptoTransform encryptor = myAes.CreateEncryptor();
 
+            foreach (User user in userList)
+            {
+                user.StoreKey(key);
+            }
+
             return new CryptoStream(stream, encryptor, CryptoStreamMode.Read);
+        }
+
+        /// <summary>
+        /// Decrypte input stream.
+        /// </summary>
+        /// <param name="stream">Input Stream</param>
+        /// <returns>Decrypte Stream</returns>
+        public CryptoStream DecrypteStream(Stream stream, string userName, string keyPharse)
+        {
+            AesManaged myAes = new AesManaged();
+            myAes.Mode = cipherMode;
+            myAes.IV = iV;
+            var user = (from u in userList
+                       where u.Name.Equals(userName)
+                       select u).FirstOrDefault();
+            myAes.Key = user.LoadKey(keyPharse);
+
+            ICryptoTransform decryptor = myAes.CreateDecryptor();
+
+            return new CryptoStream(stream, decryptor, CryptoStreamMode.Read);
         }
         #endregion
 

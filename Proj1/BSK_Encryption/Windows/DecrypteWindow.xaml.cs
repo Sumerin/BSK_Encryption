@@ -47,37 +47,49 @@ namespace BSK_Encryption.Windows
         /// <param name="e"></param>
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            var aes = AesEncryptionApi.FromXml(viewModel.InputPath,viewModel.User);
-            //aes.Initialize();
-            //aes.addUser("Sumek");
-            //using (var output = File.Open(viewModel.OutputPath, FileMode.Create))
-            //{
+            string tempFile = System.IO.Path.GetTempFileName();
 
-            //    using (var xmlOutput = XmlWriter.Create(output))
-            //    {
-            //        xmlOutput.WriteStartDocument();
-            //        xmlOutput.WriteStartElement("Data");
+            AesEncryptionApi aes = PrepareAesEncryption(tempFile);
+            DecrypteFile(tempFile, aes);
+        }
 
-            //        aes.WriteToXml(xmlOutput);
+        private void DecrypteFile(string tempFile, AesEncryptionApi aes)
+        {
+            using (var input = File.OpenRead(tempFile))
+            {
+                using (var decryptedStream = aes.DecrypteStream(input, viewModel.User, "Test"))
+                {
+                    using (var output = File.OpenWrite(viewModel.OutputPath))
+                    {
+                        decryptedStream.CopyTo(output);
+                    }
+                }
+            }
+        }
 
-            //        xmlOutput.WriteStartElement("Content");
-            //        xmlOutput.WriteString("");
-            //        xmlOutput.Flush();
-            //        using (var source = File.Open(viewModel.InputPath, FileMode.Open))
-            //        {
-            //            using (var sourceEncypted = aes.EncrypteStream(source))
-            //            {
-            //                sourceEncypted.CopyTo(output);
-            //            }
-            //        }
-            //        xmlOutput.WriteEndElement();
+        private AesEncryptionApi PrepareAesEncryption(string tempFile)
+        {
+            AesEncryptionApi aes;
+            using (var input = File.OpenRead(viewModel.InputPath))
+            {
+                using (var reader = XmlReader.Create(input))
+                {
+                    aes = AesEncryptionApi.FromXml(reader);
 
-            //        xmlOutput.WriteEndElement();
-            //        xmlOutput.WriteEndDocument();
+                    using (var output = File.OpenWrite(tempFile))
+                    {
+                        input.Position = (reader as IXmlLineInfo).LinePosition + "><Content>".Length;//Set proper position beacues xmlReader loads to much
 
-            //    }
-            //}
+                        while ((input.Length - input.Position) != "</Content></Data>".Length)
+                        {
+                            int data = input.ReadByte();
+                            output.WriteByte(Convert.ToByte(data));
+                        }
+                    }
+                }
+            }
 
+            return aes;
         }
 
         /// <summary>
@@ -87,22 +99,22 @@ namespace BSK_Encryption.Windows
         /// <param name="e"></param>
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
         {
-            //OpenFileDialog openFileDialog = new OpenFileDialog();
-            //if (openFileDialog.ShowDialog() == true)
-            //{
-            //    if (sender.Equals(source))
-            //    {
-            //        viewModel.InputPath = openFileDialog.FileName;
-            //    }
-            //    else if (sender.Equals(dest))
-            //    {
-            //        viewModel.OutputPath = openFileDialog.FileName;
-            //    }
-            //    else
-            //    {
-            //        throw new Exception("Wtf?, What have u click?");
-            //    }
-            //}
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                if (sender.Equals(source))
+                {
+                    viewModel.InputPath = openFileDialog.FileName;
+                }
+                else if (sender.Equals(dest))
+                {
+                    viewModel.OutputPath = openFileDialog.FileName;
+                }
+                else
+                {
+                    throw new Exception("Wtf?, What have u click?");
+                }
+            }
         }
         #endregion
 

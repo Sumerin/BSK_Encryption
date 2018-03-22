@@ -9,6 +9,11 @@ namespace BSK_Encryption.Encryption
 {
     public static class Conversion
     {
+        /// <summary>
+        /// Conversion from string to Cipher Mode used at loading state.
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static CipherMode CipherFromString(string str)
         {
             switch(str)
@@ -25,6 +30,11 @@ namespace BSK_Encryption.Encryption
             return 0;
         }
 
+        /// <summary>
+        ///  Conversion from string to array of bytes used at loading state.
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static byte[] ByteArrayFromString(string str)
         {
             var octets = str.Split('.');

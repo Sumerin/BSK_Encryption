@@ -20,7 +20,22 @@ namespace BSK_Encryption.Encryption
         /// List of approved users.
         /// </summary>
         List<User> userList = new List<User>();
+        #endregion
 
+        #region Constructors
+        public AesEncryptionApi(CipherMode ciphermode, int blockSize, int keySize)
+        {
+            this.cipherMode = ciphermode;
+            this.blockSize = blockSize;
+            this.keySize = keySize;
+        }
+
+        private AesEncryptionApi()
+        {
+        }
+        #endregion
+
+        #region methods
         /// <summary>
         /// Reads the header and prepare Aes algorithm.
         /// </summary>
@@ -32,11 +47,11 @@ namespace BSK_Encryption.Encryption
             var aes = new AesEncryptionApi();
             reader.ReadToFollowing("KeySize");
             aes.keySize = reader.ReadElementContentAsInt();
-            
+
             aes.blockSize = reader.ReadElementContentAsInt();
-            
+
             aes.cipherMode = Conversion.CipherFromString(reader.ReadElementContentAsString());
-            
+
             aes.iV = Conversion.ByteArrayFromString(reader.ReadElementContentAsString());
 
 
@@ -60,22 +75,7 @@ namespace BSK_Encryption.Encryption
 
             return aes;
         }
-        #endregion
 
-        #region Constructors
-        public AesEncryptionApi(CipherMode ciphermode, int blockSize, int keySize)
-        {
-            this.cipherMode = ciphermode;
-            this.blockSize = blockSize;
-            this.keySize = keySize;
-        }
-
-        private AesEncryptionApi()
-        {
-        }
-        #endregion
-
-        #region methods
         /// <summary>
         /// Generates key and IV.
         /// </summary>
@@ -103,8 +103,7 @@ namespace BSK_Encryption.Encryption
             var keyGenerator = new Rfc2898DeriveBytes(keypharse, Const.SALT, Iterations);
             return keyGenerator.GetBytes(size);
         }
-
-
+        
         /// <summary>
         /// Add user to the approved users.
         /// </summary>

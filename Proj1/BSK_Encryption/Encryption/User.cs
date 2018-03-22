@@ -23,7 +23,6 @@ namespace BSK_Encryption.Encryption
             }
         }
 
-
         private User()
         {
         }
@@ -33,6 +32,11 @@ namespace BSK_Encryption.Encryption
             this.name = name;
         }
 
+        #region Methods
+        /// <summary>
+        /// Writes user form xml file.
+        /// </summary>
+        /// <param name="output">Opened xml file</param>
         public void WriteToXml(XmlWriter output)
         {
             output.WriteStartElement("User");
@@ -44,6 +48,11 @@ namespace BSK_Encryption.Encryption
             output.WriteEndElement();
         }
 
+        /// <summary>
+        /// Load config for user from xml file.
+        /// </summary>
+        /// <param name="input">Opened xml file</param>
+        /// <returns></returns>
         public static User FromXml(XmlReader input)
         {
             var user = new User();
@@ -56,6 +65,10 @@ namespace BSK_Encryption.Encryption
             return user;
         }
 
+        /// <summary>
+        /// Store key with encryption of public key
+        /// </summary>
+        /// <param name="key"></param>
         internal void StoreKey(byte[] key)
         {
             this.key = Encrypte(key);
@@ -92,5 +105,6 @@ namespace BSK_Encryption.Encryption
         {
             return key;
         }
+        #endregion
     }
 }

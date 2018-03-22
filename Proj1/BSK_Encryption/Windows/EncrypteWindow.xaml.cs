@@ -98,7 +98,11 @@ namespace BSK_Encryption.Windows
             }
         }
 
-
+        /// <summary>
+        /// Open dialog and let add existing user as recipient.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddUsers_Click(object sender, RoutedEventArgs e)
         {
             var userWindow = new UsersWindow() { Owner = this };

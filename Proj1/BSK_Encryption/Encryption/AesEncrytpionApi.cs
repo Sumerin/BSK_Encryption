@@ -57,18 +57,16 @@ namespace BSK_Encryption.Encryption
 
             do
             {
-                if (reader.NodeType == XmlNodeType.Element)
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "User")
                 {
-                    if (reader.Name == "User")
-                    {
                         var user = User.FromXml(reader);
                         aes.userList.Add(user);
-                    }
-                    else if (reader.Name == "Content")
-                    {
-                        break;
-                    }
                 }
+                else if(reader.NodeType == XmlNodeType.EndElement && reader.Name == "Header")
+                {
+                    break;
+                }
+
             }
             while (reader.Read());
 
@@ -116,6 +114,7 @@ namespace BSK_Encryption.Encryption
             if (Directory.Exists(userPath))
             {
                 userList.Add(new User(name));
+
                 return true;
             }
             return false;
@@ -140,6 +139,7 @@ namespace BSK_Encryption.Encryption
             output.WriteStartElement("Users");
             foreach (User user in userList)
             {
+                user.StoreKey(this.key);
                 user.WriteToXml(output);
             }
 
@@ -160,11 +160,6 @@ namespace BSK_Encryption.Encryption
             myAes.Key = this.key;
 
             ICryptoTransform encryptor = myAes.CreateEncryptor();
-
-            foreach (User user in userList)
-            {
-                user.StoreKey(key);
-            }
 
             return new CryptoStream(stream, encryptor, CryptoStreamMode.Read);
         }

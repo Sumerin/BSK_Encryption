@@ -53,21 +53,19 @@ namespace BSK_Encryption.Windows
                 using (var xmlOutput = XmlWriter.Create(output))
                 {
                     xmlOutput.WriteStartDocument();
-                    xmlOutput.WriteStartElement("Data");
 
                     aes.WriteToXml(xmlOutput);
-
-                    xmlOutput.WriteStartElement("Content");
-                    xmlOutput.WriteString("");
+                    
                     xmlOutput.Flush();
-                    using (var source = File.Open(viewModel.InputPath, FileMode.Open))
-                    {
-                        using (var sourceEncypted = aes.EncrypteStream(source))
-                        {
-                            sourceEncypted.CopyTo(output);
-                        }
-                    }
+                  
                     xmlOutput.WriteEndDocument();
+                }
+                using (var source = File.Open(viewModel.InputPath, FileMode.Open))
+                {
+                    using (var sourceEncypted = aes.EncrypteStream(source))
+                    {
+                        sourceEncypted.CopyTo(output);
+                    }
                 }
             }
 

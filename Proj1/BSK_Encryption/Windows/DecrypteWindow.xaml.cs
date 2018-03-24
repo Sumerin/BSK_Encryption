@@ -78,13 +78,9 @@ namespace BSK_Encryption.Windows
 
                     using (var output = File.OpenWrite(tempFile))
                     {
-                        input.Position = (reader as IXmlLineInfo).LinePosition + "><Content>".Length;//Set proper position beacues xmlReader loads to much
+                        input.Position = (reader as IXmlLineInfo).LinePosition + "</Header>".Length;//Set proper position beacues xmlReader loads to much
 
-                        while ((input.Length - input.Position) != "</Content></Data>".Length)
-                        {
-                            int data = input.ReadByte();
-                            output.WriteByte(Convert.ToByte(data));
-                        }
+                        input.CopyTo(output);
                     }
                 }
             }

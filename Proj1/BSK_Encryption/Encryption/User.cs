@@ -59,7 +59,7 @@ namespace BSK_Encryption.Encryption
 
             input.ReadToFollowing("Username");
             user.name = input.ReadElementContentAsString();
-            
+
             user.key = Conversion.ByteArrayFromString(input.ReadElementContentAsString());
 
             return user;
@@ -71,18 +71,10 @@ namespace BSK_Encryption.Encryption
         /// <param name="key"></param>
         internal void StoreKey(byte[] key)
         {
-            this.key = Encrypte(key);
+            this.key = RsaEncryptionApi.Encrypte(key, this.name);
         }
 
-        /// <summary>
-        /// Encrypte using user public key
-        /// </summary>
-        /// <param name="key">session key</param>
-        /// <returns>Encrypte session key with public key</returns>
-        private byte[] Encrypte(byte[] key)
-        {
-            return key;
-        }
+
 
         /// <summary>
         /// TODO
@@ -91,20 +83,10 @@ namespace BSK_Encryption.Encryption
         /// <returns></returns>
         internal byte[] LoadKey(string keyPharse)
         {
-            return Decrypte(this.key, keyPharse);
+            return RsaEncryptionApi.Decrypte(this.key, this.name, keyPharse);
         }
 
-        /// <summary>
-        /// TODO
-        /// Decrypte private key using sha-256 of pharse then dectypte sessionKey.
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="pharse"></param>
-        /// <returns></returns>
-        private byte[] Decrypte(byte[] key, string pharse)
-        {
-            return key;
-        }
+
         #endregion
     }
 }

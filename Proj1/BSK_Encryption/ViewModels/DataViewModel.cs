@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 namespace BSK_Encryption.ViewModels
 {
 
-    public abstract class DataViewModel : INotifyPropertyChanged
+    public abstract class DataViewModel : NotifyPropertyChanged
     {
         #region Field
         private string inputPath;
@@ -28,18 +28,6 @@ namespace BSK_Encryption.ViewModels
             {
                 outputPath = value;
                 OnPropertyChanged();
-            }
-        }
-        #endregion
-
-        #region Notify Interface
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
         #endregion

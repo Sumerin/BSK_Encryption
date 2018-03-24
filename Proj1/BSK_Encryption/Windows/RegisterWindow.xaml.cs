@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BSK_Encryption.Encryption;
+using BSK_Encryption.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,16 @@ namespace BSK_Encryption.Windows
     /// </summary>
     public partial class RegisterWindow : Window
     {
+
         public RegisterWindow()
         {
             InitializeComponent();
+        }
+
+        private void Submit_Click(object sender, RoutedEventArgs e)
+        {
+            RsaEncryptionApi.GenerateKey(Username.Text, Password.Password);
+            this.Close();
         }
     }
 }

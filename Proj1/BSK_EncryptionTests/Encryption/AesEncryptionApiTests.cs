@@ -39,42 +39,42 @@ namespace BSK_Encryption.Encryption.Tests
             encryptedFile = Path.Combine(testPath, Path.GetRandomFileName());
             decryptedFile = Path.Combine(testPath, Path.GetRandomFileName());
 
-            userPublicPath = Path.Combine(Const.KEY_FOLDER, Const.PUBLIC_KEY_FOLDER, user);
-            userPrivatePath = Path.Combine(Const.KEY_FOLDER, Const.PUBLIC_KEY_FOLDER, user);
+            userPublicPath = Path.Combine(Const.KEY_FOLDER_PATH, Const.PUBLIC_KEY_FOLDER, user);
+            userPrivatePath = Path.Combine(Const.KEY_FOLDER_PATH, Const.PRIVATE_KEY_FOLDER, user);
 
-            //Folder for public key may need copy
-            if (Directory.Exists(userPublicPath))
-            {
-                Directory.Delete(userPublicPath, true);
-            }
-            Directory.CreateDirectory(userPublicPath);
+            ////Folder for public key may need copy
+            //if (Directory.Exists(userPublicPath))
+            //{
+            //    Directory.Delete(userPublicPath, true);
+            //}
+            //Directory.CreateDirectory(userPublicPath);
 
-            //Folder for privateKey may need copy
-            if (Directory.Exists(userPrivatePath))
-            {
-                Directory.Delete(userPrivatePath, true);
-            }
-            Directory.CreateDirectory(userPrivatePath);
+            ////Folder for privateKey may need copy
+            //if (Directory.Exists(userPrivatePath))
+            //{
+            //    Directory.Delete(userPrivatePath, true);
+            //}
+            //Directory.CreateDirectory(userPrivatePath);
 
         }
 
         [TestCleanup]
         public void CleanUp()
         {
-            if (Directory.Exists(testPath))
-            {
-                Directory.Delete(testPath, true);
-            }
+            //if (Directory.Exists(testPath))
+            //{
+            //    Directory.Delete(testPath, true);
+            //}
 
-            if (Directory.Exists(userPublicPath))
-            {
-                Directory.Delete(userPublicPath, true);
-            }
+            //if (Directory.Exists(userPublicPath))
+            //{
+            //    Directory.Delete(userPublicPath, true);
+            //}
 
-            if (Directory.Exists(userPrivatePath))
-            {
-                Directory.Delete(userPrivatePath, true);
-            }
+            //if (Directory.Exists(userPrivatePath))
+            //{
+            //    Directory.Delete(userPrivatePath, true);
+            //}
         }
 
         [TestMethod()]
@@ -91,6 +91,7 @@ namespace BSK_Encryption.Encryption.Tests
 
             bool isAdded = aes.addUser(user);
 
+            Assert.IsTrue(isAdded);
             int orginalByte;
             int finnalByte;
 

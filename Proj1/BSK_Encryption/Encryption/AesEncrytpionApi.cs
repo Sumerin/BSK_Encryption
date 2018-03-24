@@ -109,11 +109,13 @@ namespace BSK_Encryption.Encryption
         /// <returns><c>true</c> if user exists, otherwise <c>false</c> </returns>
         public bool addUser(string name)
         {
-            string userPath = Path.Combine(Const.KEY_FOLDER, Const.PUBLIC_KEY_FOLDER, name);
+            string userPath = Path.Combine(Const.KEY_FOLDER_PATH, Const.PUBLIC_KEY_FOLDER, name);
 
-            if (Directory.Exists(userPath))
+            if (Directory.Exists(userPath) && this.key!=null)
             {
-                userList.Add(new User(name));
+                var user = new User(name);
+                user.StoreKey(this.key);
+                userList.Add(user);
 
                 return true;
             }
@@ -139,7 +141,6 @@ namespace BSK_Encryption.Encryption
             output.WriteStartElement("Users");
             foreach (User user in userList)
             {
-                user.StoreKey(this.key);
                 user.WriteToXml(output);
             }
 

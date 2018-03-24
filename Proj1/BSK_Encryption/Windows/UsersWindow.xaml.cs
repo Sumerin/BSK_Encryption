@@ -33,7 +33,7 @@ namespace BSK_Encryption.Windows
                 UserViewModel.Instance.AllUsers = new ObservableCollection<UserGridElement>();
             }
 
-            string path = Path.Combine(Const.KEY_FOLDER, Const.PUBLIC_KEY_FOLDER);
+            string path = Path.Combine(Const.KEY_FOLDER_PATH, Const.PUBLIC_KEY_FOLDER);
             foreach (string username in Directory.EnumerateDirectories(path))
             {
                 var user = new UserGridElement(Path.GetFileName(username));

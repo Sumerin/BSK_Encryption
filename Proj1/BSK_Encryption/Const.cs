@@ -13,7 +13,7 @@ namespace BSK_Encryption
         /// <summary>
         /// Folder for keys.
         /// </summary>
-        public static readonly string KEY_FOLDER = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "BSK_Encryption");
+        public static readonly string KEY_FOLDER_PATH = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "BSK_Encryption");
         /// <summary>
         /// Subfolder for private keys.
         /// </summary>
@@ -22,6 +22,14 @@ namespace BSK_Encryption
         /// SubFolder for public keys.
         /// </summary>
         public const string PUBLIC_KEY_FOLDER = "public";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string PRIVATE_KEY_FILENAME = "PrivateKey.txt";
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string PUBLIC_KEY_FILENAME = "PublicKey.txt";
         /// <summary>
         /// Salt for genereting byte of Array.
         /// </summary>

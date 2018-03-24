@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,6 +34,7 @@ namespace BSK_Encryption.Windows
         public DecrypteWindow()
         {
             viewModel = new DecrypteDataViewModel();
+            viewModel.IsNotRunning = true;
             this.DataContext = viewModel;
 
             InitializeComponent();
@@ -45,47 +47,12 @@ namespace BSK_Encryption.Windows
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Start_Click(object sender, RoutedEventArgs e)
+        private async void Start_Click(object sender, RoutedEventArgs e)
         {
             string tempFile = System.IO.Path.GetTempFileName();
 
-            AesEncryptionApi aes = PrepareAesEncryption(tempFile);
+            AesEncryptionApi aes = await PrepareAesEncryptionAsync(tempFile);
             DecrypteFile(tempFile, aes);
-        }
-
-        private void DecrypteFile(string tempFile, AesEncryptionApi aes)
-        {
-            using (var input = File.OpenRead(tempFile))
-            {
-                using (var decryptedStream = aes.DecrypteStream(input, viewModel.User, "Test"))
-                {
-                    using (var output = File.OpenWrite(viewModel.OutputPath))
-                    {
-                        decryptedStream.CopyTo(output);
-                    }
-                }
-            }
-        }
-
-        private AesEncryptionApi PrepareAesEncryption(string tempFile)
-        {
-            AesEncryptionApi aes;
-            using (var input = File.OpenRead(viewModel.InputPath))
-            {
-                using (var reader = XmlReader.Create(input))
-                {
-                    aes = AesEncryptionApi.FromXml(reader);
-
-                    using (var output = File.OpenWrite(tempFile))
-                    {
-                        input.Position = (reader as IXmlLineInfo).LinePosition + "</Header>".Length;//Set proper position beacues xmlReader loads to much
-
-                        input.CopyTo(output);
-                    }
-                }
-            }
-
-            return aes;
         }
 
         /// <summary>
@@ -115,6 +82,91 @@ namespace BSK_Encryption.Windows
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Decrypte file form temporary file.
+        /// </summary>
+        /// <param name="tempFile">Temporary file containg only encrypted data</param>
+        /// <param name="aes">Configured api</param>
+        private async void DecrypteFile(string tempFile, AesEncryptionApi aes)
+        {
+            using (var input = File.OpenRead(tempFile))
+            {
+                using (var decryptedStream = aes.DecrypteStream(input, viewModel.User, "Test"))
+                {
+                    using (var output = File.OpenWrite(viewModel.OutputPath))
+                    {
+                        Task copyTask = decryptedStream.CopyToAsync(output);
+
+                        new Thread(() => StartUpdatingprogress(input, copyTask, 50, 100))
+                            .Start();
+
+                        await copyTask;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updating progress bar need to run asynchronously or in another thread
+        /// </summary>
+        /// <param name="source">Input file stream.</param>
+        /// <param name="copyTask">Task which completiction is being reported</param>
+        /// <param name="start">range of progress</param>
+        /// <param name="end">range of progress</param>
+        private void StartUpdatingprogress(FileStream source, Task copyTask, int start, int end)
+        {
+            long length = source.Length;
+            do
+            {
+                double position = (double)source.Position;
+                viewModel.Progress = ((position / length) * 50) + start;
+            }
+            while (!copyTask.IsCompleted);
+            viewModel.Progress = end;
+        }
+
+        /// <summary>
+        /// Asynchronously preperation of the aes and data;
+        /// </summary>
+        /// <param name="tempFile">Temporary file to wich data are coopied</param>
+        /// <returns>Task with configured AesEncryptionApi as a result</returns>
+        private Task<AesEncryptionApi> PrepareAesEncryptionAsync(string tempFile)
+        {
+            return Task.Run<AesEncryptionApi>(() => PrepareAesEncryption(tempFile));
+        }
+
+
+        /// <summary>
+        /// Preperation of the aes and data;
+        /// </summary>
+        /// <param name="tempFile">Temporary file to wich data are coopied</param>
+        /// <returns>Configured AesEncryptionApi</returns>
+        private AesEncryptionApi PrepareAesEncryption(string tempFile)
+        {
+            AesEncryptionApi aes;
+            using (var input = File.OpenRead(viewModel.InputPath))
+            {
+                using (var reader = XmlReader.Create(input))
+                {
+                    aes = AesEncryptionApi.FromXml(reader);
+
+                    using (var output = File.OpenWrite(tempFile))
+                    {
+                        input.Position = (reader as IXmlLineInfo).LinePosition + "</Header>".Length;//Set proper position beacues xmlReader loads to much
+
+                        Task copyTask = input.CopyToAsync(output);
+
+                        new Thread(() => StartUpdatingprogress(input, copyTask, 0, 50))
+                           .Start();
+
+                        copyTask.Wait();
+                    }
+                }
+            }
+
+            return aes;
+        }
+
         #endregion
 
 

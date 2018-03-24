@@ -9,8 +9,10 @@ namespace BSK_Encryption.ViewModels
         #region Field
         private string inputPath;
         private string outputPath;
-        #endregion 
-         
+        private double progress;
+        private bool isNotRunning;
+        #endregion
+
         #region Properties
         public string InputPath
         {
@@ -27,6 +29,30 @@ namespace BSK_Encryption.ViewModels
             set
             {
                 outputPath = value;
+                OnPropertyChanged();
+            }
+        }
+        public double Progress
+        {
+            get
+            {
+                return progress;
+            }
+            set
+            {
+                progress = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool IsNotRunning
+        {
+            get
+            {
+                return isNotRunning;
+            }
+            set
+            {
+                isNotRunning = value;
                 OnPropertyChanged();
             }
         }

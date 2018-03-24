@@ -20,7 +20,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <GroupBox Grid.Row="0"  Header="User Input" Margin="5">
+        <GroupBox Grid.Row="0" Header="User Input" Margin="5" IsEnabled="{Binding IsNotRunning}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -53,7 +53,7 @@
                         </Setter>
                     </Style>
                 </Grid.Resources>
-                
+
                 <!--Source Input-->
                 <StackPanel Grid.Row="0" Grid.Column="0" Margin="3" Orientation="Horizontal">
                     <Label Margin="3">Input File:</Label>
@@ -98,11 +98,11 @@
         </GroupBox>
         <!-- ProgresBar hehe-->
         <GroupBox Grid.Row="1" Header="Feedback" Margin="5">
-            <ProgressBar Height="20" ></ProgressBar>
+            <ProgressBar Height="20"  Value="{Binding Progress}"></ProgressBar>
         </GroupBox>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
-            <Button Click="Start_Click">Start</Button>
+            <Button Click="Start_Click" IsEnabled="{Binding IsNotRunning}">Start</Button>
         </StackPanel>
     </Grid>
 </Window>

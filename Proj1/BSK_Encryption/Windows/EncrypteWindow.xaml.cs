@@ -4,6 +4,8 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Xml;
 
@@ -22,6 +24,7 @@ namespace BSK_Encryption.Windows
         public EncrypteWindow()
         {
             viewModel = new EncrypteDataViewModel();
+            viewModel.IsNotRunning = true;
             this.DataContext = viewModel;
 
             InitializeComponent();
@@ -34,41 +37,71 @@ namespace BSK_Encryption.Windows
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Start_Click(object sender, RoutedEventArgs e)
+        private async void Start_Click(object sender, RoutedEventArgs e)
         {
-            var aes = new AesEncryptionApi(viewModel.Cipher, viewModel.BlockSize, 32);
-            aes.Initialize();
-            if(viewModel.Users==null || viewModel.Users?.Count==0)
+            try
             {
-                MessageBox.Show("No Recipient was assigned","Error",MessageBoxButton.OK);
-                return ;
-            }
-            foreach (string nickname in viewModel.Users)
-            {
-                aes.addUser(nickname);
-            }
-            using (var output = File.Open(viewModel.OutputPath, FileMode.Create))
-            {
-
-                using (var xmlOutput = XmlWriter.Create(output))
+                viewModel.Progress = 0;
+                viewModel.IsNotRunning = false;
+                var aes = new AesEncryptionApi(viewModel.Cipher, viewModel.BlockSize, 32);
+                aes.Initialize();
+                if (viewModel.Users == null || viewModel.Users?.Count == 0)
                 {
-                    xmlOutput.WriteStartDocument();
-
-                    aes.WriteToXml(xmlOutput);
-                    
-                    xmlOutput.Flush();
-                  
-                    xmlOutput.WriteEndDocument();
+                    MessageBox.Show("No Recipient was assigned", "Error", MessageBoxButton.OK);
+                    return;
                 }
-                using (var source = File.Open(viewModel.InputPath, FileMode.Open))
+                foreach (string nickname in viewModel.Users)
                 {
-                    using (var sourceEncypted = aes.EncrypteStream(source))
+                    aes.addUser(nickname);
+                }
+                using (var output = File.Open(viewModel.OutputPath, FileMode.Create))
+                {
+
+                    using (var xmlOutput = XmlWriter.Create(output))
                     {
-                        sourceEncypted.CopyTo(output);
+                        xmlOutput.WriteStartDocument();
+
+                        aes.WriteToXml(xmlOutput);
+
+                        xmlOutput.Flush();
+
+                        xmlOutput.WriteEndDocument();
+                    }
+                    using (var source = File.Open(viewModel.InputPath, FileMode.Open))
+                    {
+                        using (var sourceEncypted = aes.EncrypteStream(source))
+                        {
+                            Task copyTask = sourceEncypted.CopyToAsync(output);
+
+                            new Thread(() => StartUpdatingprogress(source, copyTask))
+                                .Start();
+
+                            await copyTask;
+                        }
                     }
                 }
-            }
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK);
+            }
+            finally
+            {
+                viewModel.IsNotRunning = true;
+            }
+        }
+
+        private void StartUpdatingprogress(FileStream source, Task copyTask)
+        {
+            long length = source.Length;
+            do
+            {
+                double position = (double)source.Position;
+                viewModel.Progress = (position / length) * 100;
+            }
+            while (!copyTask.IsCompleted);
+            viewModel.Progress = 100;
         }
 
         /// <summary>

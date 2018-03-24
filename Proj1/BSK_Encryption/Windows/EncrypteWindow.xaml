@@ -20,7 +20,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <GroupBox Grid.Row="0"  Header="User Input" Margin="5">
+        <GroupBox Grid.Row="0" Header="User Input" Margin="5" IsEnabled="{Binding IsNotRunning}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -117,11 +117,11 @@
         </GroupBox>
         <!-- ProgresBar hehe-->
         <GroupBox Grid.Row="1" Header="Feedback" Margin="5">
-            <ProgressBar Height="20" ></ProgressBar>
+            <ProgressBar Value="{Binding Progress}" Height="20" ></ProgressBar>
         </GroupBox>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
-            <Button Click="Start_Click">Start</Button>
+            <Button Click="Start_Click" IsEnabled="{Binding IsNotRunning}">Start</Button>
         </StackPanel>
     </Grid>
 </Window>

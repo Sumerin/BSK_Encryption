@@ -27,24 +27,44 @@ namespace BSK_Encryption.Encryption
             return rsa.Encrypt(data, true);
         }
 
-        public static byte[] Decrypte(byte[] key, string username, string keyPharse)
+        public static byte[] Decrypte(byte[] data, string username, byte[] keyPharse)
         {
             var rsa = new RSACryptoServiceProvider();
 
             string privatePath = Path.Combine(Const.KEY_FOLDER_PATH, Const.PRIVATE_KEY_FOLDER, username);
             string privateKeyFile = Path.Combine(privatePath, Const.PRIVATE_KEY_FILENAME);
-
-            using (var reader = new StreamReader(privateKeyFile))
+            try
             {
-                string input = reader.ReadToEnd();
-                rsa.FromXmlString(input);
+
+            using (var inputStream = File.OpenRead(privateKeyFile))
+            {
+                var aes = new AesEncryptionApi(CipherMode.CBC, 128, 256);
+                using (var streamdecrypted = aes.DecrypteStream(inputStream, keyPharse))
+                {
+                    using (var input = new StreamReader(streamdecrypted))
+                    {
+                        string inputText = input.ReadToEnd();
+                        rsa.FromXmlString(inputText);
+                    }
+                }
             }
 
-            return rsa.Decrypt(key, true);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Wrong keypharse");
+            }
+            return rsa.Decrypt(data, true);
 
         }
 
-        public static void GenerateKey(string username, string keyPharse)
+        /// <summary>
+        /// Generateky and save it 
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="keyPharse"></param>
+        public static void GenerateKey(string username,byte[] keyPharse)
         {
             var rsa = new RSACryptoServiceProvider();
             string publicPath = Path.Combine(Const.KEY_FOLDER_PATH, Const.PUBLIC_KEY_FOLDER, username);
@@ -72,11 +92,19 @@ namespace BSK_Encryption.Encryption
                 file.Write(publicKey);
             }
 
-            using (var file = new StreamWriter(privateKeyFile))
+            using (var file = File.OpenWrite(privateKeyFile))
             {
-                string privateKey = rsa.ToXmlString(true);
-                file.Write(privateKey);
+                var aes = new AesEncryptionApi(CipherMode.CBC, 128, 256);
+                using (var fileOutput = aes.EncrypteStream(file,keyPharse,CryptoStreamMode.Write))
+                {
+                    using (var output = new StreamWriter(fileOutput))
+                    {
+                        string privateKey = rsa.ToXmlString(true);
+                        output.Write(privateKey);
+                    }
+                }
             }
+           
         }
     }
 }

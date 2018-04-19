@@ -166,9 +166,29 @@ namespace BSK_Encryption.Encryption
         }
 
         /// <summary>
+        /// Encrypte stream.
+        /// </summary>
+        /// <param name="stream">Input Stream</param>
+        /// <returns>Encrypted Stream</returns>
+        public CryptoStream EncrypteStream(Stream stream, byte[] password, CryptoStreamMode mode)
+        {
+            AesManaged myAes = new AesManaged();
+            myAes.Mode = cipherMode;
+            myAes.IV = new byte[16];
+            myAes.Key = password;
+            myAes.BlockSize = this.blockSize;
+
+            ICryptoTransform encryptor = myAes.CreateEncryptor();
+
+            return new CryptoStream(stream, encryptor, mode);
+        }
+
+        /// <summary>
         /// Decrypte input stream.
         /// </summary>
         /// <param name="stream">Input Stream</param>
+        /// <param name="userName">Username associated</param>
+        /// <param name="keyPharse">keypharse for getting key private</param>
         /// <returns>Decrypte Stream</returns>
         public CryptoStream DecrypteStream(Stream stream, string userName, string keyPharse)
         {
@@ -179,6 +199,25 @@ namespace BSK_Encryption.Encryption
                        where u.Name.Equals(userName)
                        select u).FirstOrDefault();
             myAes.Key = user.LoadKey(keyPharse);
+            myAes.BlockSize = this.blockSize;
+
+            ICryptoTransform decryptor = myAes.CreateDecryptor();
+
+            return new CryptoStream(stream, decryptor, CryptoStreamMode.Read);
+        }
+
+        /// <summary>
+        /// Decryptye input stream
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public CryptoStream DecrypteStream(Stream stream, byte[] password)
+        {
+            AesManaged myAes = new AesManaged();
+            myAes.Mode = cipherMode;
+            myAes.IV = new byte [16];
+            myAes.Key = password;
 
             ICryptoTransform decryptor = myAes.CreateDecryptor();
 

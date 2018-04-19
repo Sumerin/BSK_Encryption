@@ -58,6 +58,7 @@
     <Compile Include="Const.cs" />
     <Compile Include="Encryption\Conversion.cs" />
     <Compile Include="Encryption\RsaEncryptionApi.cs" />
+    <Compile Include="Encryption\SHA256EncryptionApi.cs" />
     <Compile Include="ViewModels\NotifyPropertyChanged.cs" />
     <Compile Include="ViewModels\UserGridElement.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />

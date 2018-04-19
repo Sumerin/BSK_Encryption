@@ -89,20 +89,27 @@ namespace BSK_Encryption.Windows
         /// <param name="aes">Configured api</param>
         private async void DecrypteFile(string tempFile, AesEncryptionApi aes)
         {
-            using (var input = File.OpenRead(tempFile))
+            try
             {
-                using (var decryptedStream = aes.DecrypteStream(input, viewModel.User, "Test"))
+                using (var input = File.OpenRead(tempFile))
                 {
-                    using (var output = File.OpenWrite(viewModel.OutputPath))
+                    using (var decryptedStream = aes.DecrypteStream(input, viewModel.User, passwordBox.Password))
                     {
-                        Task copyTask = decryptedStream.CopyToAsync(output);
+                        using (var output = File.OpenWrite(viewModel.OutputPath))
+                        {
+                            Task copyTask = decryptedStream.CopyToAsync(output);
 
-                        new Thread(() => StartUpdatingprogress(input, copyTask, 50, 100))
-                            .Start();
+                            new Thread(() => StartUpdatingprogress(input, copyTask, 50, 100))
+                                .Start();
 
-                        await copyTask;
+                            await copyTask;
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, this.Title, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

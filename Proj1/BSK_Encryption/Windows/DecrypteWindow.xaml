@@ -93,6 +93,8 @@
                 <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
                     <Label Margin="3">User:</Label>
                     <TextBox MinWidth="100" Text="{Binding User}"></TextBox>
+                    <Label Margin="3">KeyPharse:</Label>
+                    <PasswordBox MinWidth="100" x:Name="passwordBox"></PasswordBox>
                 </StackPanel>
             </Grid>
         </GroupBox>

@@ -29,7 +29,8 @@ namespace BSK_Encryption.Windows
 
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            RsaEncryptionApi.GenerateKey(Username.Text, Password.Password);
+            byte[] hashedPassword = SHA256EncryptionApi.getHashSha256(Password.Password);
+            RsaEncryptionApi.GenerateKey(Username.Text, hashedPassword);
             this.Close();
         }
     }

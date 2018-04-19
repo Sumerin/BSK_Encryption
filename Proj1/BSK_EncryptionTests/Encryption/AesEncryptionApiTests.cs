@@ -19,8 +19,9 @@ namespace BSK_Encryption.Encryption.Tests
         string encryptedFile;
         string decryptedFile;
 
-        string user = "TestGuy";
+        string user = "TestGuys";//!! need to create that account
         string keyPharse = "Test";
+        byte[] password = new byte[32];
         string userPublicPath;
         string userPrivatePath;
 
@@ -100,7 +101,7 @@ namespace BSK_Encryption.Encryption.Tests
             //Encrypte
             using (var inputStream = File.OpenRead(file))
             {
-                using (var cryptoStream = aes.EncrypteStream(inputStream))
+                using (var cryptoStream = aes.EncrypteStream(inputStream, password, CryptoStreamMode.Read))
                 {
                     using (var outputStream = File.OpenWrite(encryptedFile))
                     {
@@ -112,7 +113,7 @@ namespace BSK_Encryption.Encryption.Tests
             //Decrypte
             using (var inputStream = File.OpenRead(encryptedFile))
             {
-                using (var cryptoStream = aes.DecrypteStream(inputStream, user, keyPharse))
+                using (var cryptoStream = aes.DecrypteStream(inputStream, password))
                 {
                     using (var outputStream = File.OpenWrite(decryptedFile))
                     {
@@ -162,7 +163,7 @@ namespace BSK_Encryption.Encryption.Tests
             //Encrypte
             using (var inputStream = File.OpenRead(file))
             {
-                using (var cryptoStream = aes.EncrypteStream(inputStream))
+                using (var cryptoStream = aes.EncrypteStream(inputStream, password, CryptoStreamMode.Read))
                 {
                     using (var outputStream = File.OpenWrite(encryptedFile))
                     {
@@ -174,7 +175,7 @@ namespace BSK_Encryption.Encryption.Tests
             //Decrypte
             using (var inputStream = File.OpenRead(encryptedFile))
             {
-                using (var cryptoStream = aes.DecrypteStream(inputStream, user, keyPharse))
+                using (var cryptoStream = aes.DecrypteStream(inputStream, password))
                 {
                     using (var outputStream = File.OpenWrite(decryptedFile))
                     {
@@ -183,9 +184,7 @@ namespace BSK_Encryption.Encryption.Tests
                 }
             }
 
-
             //Assert
-
             using (var inputOrginalStream = File.OpenRead(file))
             {
                 using (var inputFinnalStream = File.OpenRead(decryptedFile))

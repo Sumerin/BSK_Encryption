@@ -83,7 +83,8 @@ namespace BSK_Encryption.Encryption
         /// <returns></returns>
         internal byte[] LoadKey(string keyPharse)
         {
-            return RsaEncryptionApi.Decrypte(this.key, this.name, keyPharse);
+            byte [] keyPharseHash = SHA256EncryptionApi.getHashSha256(keyPharse);
+            return RsaEncryptionApi.Decrypte(this.key, this.name, keyPharseHash);
         }
 
 

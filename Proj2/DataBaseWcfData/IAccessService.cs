@@ -16,6 +16,9 @@ namespace DataTemplates
         bool Login(string username, string password);
 
         [OperationContract]
+        bool Register(string username, string password);
+
+        [OperationContract]
         List<Klient> GetKlienty();
 
         [OperationContract]

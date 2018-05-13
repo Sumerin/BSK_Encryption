@@ -114,6 +114,11 @@ namespace WCFDataBaseMacService
             return Restricter<DBzam_prod, zam_prod>
                 .Restrict(ctx.zam_prod, RestrictReadZam_pod);
         }
+
+        public bool Register(string username, string password)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         #region methods

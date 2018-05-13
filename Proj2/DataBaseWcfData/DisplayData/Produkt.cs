@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataBaseWcfData.DisplayData
+namespace DataTemplates.DisplayData
 {
     public class Produkt
     {

@@ -1,4 +1,4 @@
-namespace DataBaseWcfData
+namespace DataTemplates
 {
     using System;
     using System.Data.Entity;

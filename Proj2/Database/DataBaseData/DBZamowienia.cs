@@ -1,4 +1,4 @@
-namespace DataBaseWcfData
+namespace DataTemplates
 {
     using DisplayData;
     using System;
@@ -15,12 +15,8 @@ namespace DataBaseWcfData
         {
             zam_prod = new HashSet<DBzam_prod>();
         }
-
-
-
+        
         public int? Class_Status { get; set; }
-
-        public DateTime? Data_zlozenia { get; set; }
 
         public int? Class_Data_zlozenia { get; set; }
 

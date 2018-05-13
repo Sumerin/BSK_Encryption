@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFDataBaseMacService", "WC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{0BFB5872-83A0-492F-B37A-CBBD3851166D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTemplates", "DataBaseWcfData\DataTemplates.csproj", "{D03C4F8B-5F8A-4ABD-842A-7B7FC39942D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFDataBaseMacServiceTests", "WCFDataBaseMacServiceTests\WCFDataBaseMacServiceTests.csproj", "{E764EC9C-6DA2-47AD-9F12-7108E67906BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{0BFB5872-83A0-492F-B37A-CBBD3851166D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BFB5872-83A0-492F-B37A-CBBD3851166D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BFB5872-83A0-492F-B37A-CBBD3851166D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D03C4F8B-5F8A-4ABD-842A-7B7FC39942D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D03C4F8B-5F8A-4ABD-842A-7B7FC39942D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D03C4F8B-5F8A-4ABD-842A-7B7FC39942D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D03C4F8B-5F8A-4ABD-842A-7B7FC39942D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E764EC9C-6DA2-47AD-9F12-7108E67906BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E764EC9C-6DA2-47AD-9F12-7108E67906BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E764EC9C-6DA2-47AD-9F12-7108E67906BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E764EC9C-6DA2-47AD-9F12-7108E67906BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

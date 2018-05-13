@@ -16,21 +16,21 @@ namespace DataTemplates
         bool Login(string username, string password);
 
         [OperationContract]
-        Klient[] GetKlienty();
+        List<Klient> GetKlienty();
 
         [OperationContract]
-        Konto[] GetKonta();
+        List<Konto> GetKonta();
 
         [OperationContract]
-        Pracownik[] GetPracownicy();
+        List<Pracownik> GetPracownicy();
 
         [OperationContract]
-        Produkt[] GetProdkuty();
+        List<Produkt> GetProdkuty();
 
         [OperationContract]
-        zam_prod[] GetZam_prody();
+        List<zam_prod> GetZam_prody();
 
         [OperationContract]
-        Zamowienia[] GetZamowienia();
+        List<Zamowienia> GetZamowienia();
     }
 }

@@ -38,7 +38,7 @@ CREATE TABLE Produkt(
 ID int PRIMARY KEY IDENTITY(1,1),
 Nazwa VARCHAR(255),
 Class_Nazwa int,
-Cena DECIMAL,
+Cena DECIMAL(18,2),
 Class_Cena int,
 Dostepnosc int,
 Class_Dostepnosc int,

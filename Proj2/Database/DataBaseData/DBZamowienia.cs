@@ -20,8 +20,6 @@ namespace DataTemplates
 
         public int? Class_Data_zlozenia { get; set; }
 
-        public int? ID_Klienta { get; set; }
-
         public int? Class { get; set; }
 
         public virtual DBKlient Klient { get; set; }

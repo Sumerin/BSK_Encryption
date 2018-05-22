@@ -28,10 +28,10 @@
                         <ListView x:Name="products" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="569">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
-                                    <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Name}"/>
-                                    <GridViewColumn Header="Cena" DisplayMemberBinding="{Binding Price}"/>
-                                    <GridViewColumn Header="Dostępność" DisplayMemberBinding="{Binding Availability}"/>
+                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding ID}" />
+                                    <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Nazwa}"/>
+                                    <GridViewColumn Header="Cena" DisplayMemberBinding="{Binding Cena}"/>
+                                    <GridViewColumn Header="Dostępność" DisplayMemberBinding="{Binding Dostepnosc}"/>
                                     <GridViewColumn Header="Ilość" CellTemplate="{StaticResource Number}"/>
                                     <GridViewColumn Header="" CellTemplate="{StaticResource Basket}"/>
                                 </GridView>
@@ -82,9 +82,9 @@
                         <ListView x:Name="basket" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="569">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
-                                    <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Name}"/>
-                                    <GridViewColumn Header="Dostępność" DisplayMemberBinding="{Binding Availability}"/>
+                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding ID}" />
+                                    <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Nazwa}"/>
+                                    <GridViewColumn Header="Dostępność" DisplayMemberBinding="{Binding Dostepnosc}"/>
                                     <GridViewColumn Header="Ilość" CellTemplate="{StaticResource Number}"/>
                                     <GridViewColumn Header="" CellTemplate="{StaticResource Delete}"/>
                                 </GridView>
@@ -93,7 +93,7 @@
                     </Grid>
                     <Button Content="Złóż zamówienie" HorizontalAlignment="Left" Margin="527.972,11,0,0" VerticalAlignment="Top" Width="111" Grid.Column="1"/>
                     <Button Content="Wyczyść" HorizontalAlignment="Left" Margin="543.972,36,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="ClearBasket"/>
-                    <Label Content="Suma: " HorizontalAlignment="Left" Margin="507.972,109,0,0" VerticalAlignment="Top" Height="24" Width="131" Grid.Column="1"/>
+                    <Label x:Name="suma" Content="Suma: " HorizontalAlignment="Left" Margin="507.972,109,0,0" VerticalAlignment="Top" Height="24" Width="131" Grid.Column="1"/>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -6,7 +6,7 @@ namespace DataTemplates
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-
+    [Table("zam_prod")]
     public partial class DBzam_prod : zam_prod
     {
         public int? Class_Ilosc { get; set; }

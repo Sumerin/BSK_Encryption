@@ -11,9 +11,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Proj2.ServiceReference1;
 
 namespace Proj2
 {
+    public static class Globals
+    {
+        public static AccessServiceClient client=null;
+    }
     /// <summary>
     /// Logika interakcji dla klasy Login.xaml
     /// </summary>
@@ -26,7 +31,21 @@ namespace Proj2
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (login.Text.Equals("1") == true)
+            if (Globals.client == null)
+            {
+                Globals.client = new AccessServiceClient();
+            }
+            string accessType;
+            
+
+            if(!Globals.client.Login(login.Text, password.Password))
+            {
+                return;
+            }
+
+            accessType=Globals.client.GetKonta().Where(c => c.Login == login.Text).Select(c=>c.Clear).First().ToString();
+
+            if (accessType.Equals("2") == true)
             {
                 WorkerWin worker = new WorkerWin();
                 App.Current.MainWindow = worker;
@@ -35,7 +54,7 @@ namespace Proj2
                 return;
             }
 
-            if (login.Text.Equals("2") == true)
+            if (accessType.Equals("3") == true)
             {
                 AdminWin admin = new AdminWin();
                 App.Current.MainWindow = admin;
@@ -56,12 +75,35 @@ namespace Proj2
             if (e.Key.Equals(Key.Enter) == false)
                 return;
 
-            if (login.Text.Equals("1") == true)
+            if (Globals.client == null)
+            {
+                Globals.client = new AccessServiceClient();
+            }
+            string accessType;
+
+
+            if (!Globals.client.Login(login.Text, password.Password))
+            {
+                return;
+            }
+
+            accessType = Globals.client.GetKonta().Where(c => c.Login == login.Text).Select(c => c.Clear).First().ToString();
+
+            if (accessType.Equals("2") == true)
             {
                 WorkerWin worker = new WorkerWin();
                 App.Current.MainWindow = worker;
                 this.Close();
                 worker.Show();
+                return;
+            }
+
+            if (accessType.Equals("3") == true)
+            {
+                AdminWin admin = new AdminWin();
+                App.Current.MainWindow = admin;
+                this.Close();
+                admin.Show();
                 return;
             }
 

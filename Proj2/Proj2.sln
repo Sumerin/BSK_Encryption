@@ -1,15 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proj2", "Proj2\Proj2.csproj", "{C06F2531-4F3E-4179-A731-DD069706ACD4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{65316553-5DA4-494A-B415-FBA597021C1E} = {65316553-5DA4-494A-B415-FBA597021C1E}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{CEA8563C-4759-4237-B170-E355F7D41AE1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFDataBaseMacService", "WCFDataBaseMacService\WCFDataBaseMacService.csproj", "{65316553-5DA4-494A-B415-FBA597021C1E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{0BFB5872-83A0-492F-B37A-CBBD3851166D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{65316553-5DA4-494A-B415-FBA597021C1E} = {65316553-5DA4-494A-B415-FBA597021C1E}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTemplates", "DataBaseWcfData\DataTemplates.csproj", "{D03C4F8B-5F8A-4ABD-842A-7B7FC39942D9}"
 EndProject

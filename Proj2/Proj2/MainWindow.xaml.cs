@@ -13,36 +13,39 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Proj2.ServiceReference1;
 
-public class Product {
-    public int Id { get; set; }
-    public string Name { get; set; }
 
-    public float Price { get; set; }
-    public int Availability { get; set; }
-}
-
-public class OrderedProduct
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-
-    public float Price { get; set; }
-    public int Number { get; set; }
-}
-
-public class Order
-{
-    public int Id { get; set; }
-    public string Client { get; set; }
-
-    public string Adress { get; set; }
-    public string State { get; set; }
-    public List<OrderedProduct> Products { get; set; }
-}
 
 namespace Proj2
 {
+    public class Product
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public float Price { get; set; }
+        public int Availability { get; set; }
+    }
+
+    public class OrderedProduct
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public decimal? Price { get; set; }
+        public int? Number { get; set; }
+    }
+
+    public class Order
+    {
+        public int Id { get; set; }
+        public string Client { get; set; }
+
+        public string Adress { get; set; }
+        public string State { get; set; }
+        public List<OrderedProduct> Products { get; set; }
+    }
     /// <summary>
     /// Logika interakcji dla klasy MainWindow.xaml
     /// </summary>
@@ -51,20 +54,33 @@ namespace Proj2
         public MainWindow()
         {
             InitializeComponent();
-            products.Items.Add(new Product { Id = 1, Name = "Kartofle mniam mniam",Price=5.50f, Availability = 10});
-            products.Items.Add(new Product { Id = 2, Name = "Ziemniak mniam mniam", Price = 6.50f, Availability = 10});
+            List<Produkt> dboProducts = Globals.client.GetProdkuty().ToList<Produkt>();
+            foreach(Produkt product in dboProducts)
+            {
+                products.Items.Add(product);
+            }
+            List<Zamowienia> dboOrders = Globals.client.GetZamowienia().ToList<Zamowienia>();
+            foreach(Zamowienia z in dboOrders)
+            {
 
-            Order o = new Order { Id = 1, Client = "tomek tomek", Adress = "pomoe 21",State="Wysłano", Products = new List<OrderedProduct>() };
-            o.Products.Add(new OrderedProduct { Id = 1, Name = "Kartofle mniam mniam", Price = 5.50f, Number = 3 });
-            orders.Items.Add(o);
+                var klienty = Globals.client.GetKlienty().Where(c => c.ID == z.ID_Klienta).FirstOrDefault();
+                Order o = new Order { Id = z.ID,Client=klienty.Imie + " " + klienty.Nazwisko,Adress=klienty.Adres, State = z.Status.ToString(), Products = new List<OrderedProduct>() };
+                var lista = Globals.client.GetZam_prody().Where(c => c.ID_Zamowienia == z.ID).ToList<zam_prod>();
+                foreach(zam_prod e in lista)
+                {
+                    var prod = dboProducts.Where(c => c.ID == e.ID_Produkt).FirstOrDefault<Produkt>();
+                    o.Products.Add(new OrderedProduct { Id = prod.ID, Name = prod.Nazwa, Price = prod.Cena, Number = e.Ilosc });
+                }
+                orders.Items.Add(o);
+            }
         }
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
             TextBox t = sender as TextBox;
-            Product p = t.DataContext as Product;
-            int avail = p.Availability;
+            Produkt p = t.DataContext as Produkt;
+            int? avail = p.Dostepnosc;
             int num = Int32.Parse(t.Text+e.Text);
             e.Handled = !(avail >= num);
         }
@@ -74,8 +90,9 @@ namespace Proj2
             Button b = sender as Button;
             if (basket.Items.Contains(b.DataContext)==false)
             {
-                basket.Items.Add(b.DataContext);
+                int index=basket.Items.Add(b.DataContext);
             }
+                
         }
 
         private void ShowEdit(object sender, RoutedEventArgs e)

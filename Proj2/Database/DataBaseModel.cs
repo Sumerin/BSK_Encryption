@@ -78,7 +78,7 @@ namespace DataTemplates
 
             modelBuilder.Entity<DBProdukt>()
                 .Property(e => e.Cena)
-                .HasPrecision(18, 0);
+                .HasPrecision(18, 2);
 
             modelBuilder.Entity<DBProdukt>()
                 .HasMany(e => e.zam_prod)

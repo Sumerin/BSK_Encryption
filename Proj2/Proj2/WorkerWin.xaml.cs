@@ -27,7 +27,7 @@ namespace Proj2
             products.Items.Add(new Product { Id = 2, Name = "Ziemniak mniam mniam", Price = 6.50f, Availability = 10 });
 
             Order o = new Order { Id = 1, Client = "tomek tomek", Adress = "pomoe 21", State = "Wysłano", Products = new List<OrderedProduct>() };
-            o.Products.Add(new OrderedProduct { Id = 1, Name = "Kartofle mniam mniam", Price = 5.50f, Number = 3 });
+            o.Products.Add(new OrderedProduct { Id = 1, Name = "Kartofle mniam mniam", Price = 5.50m, Number = 3 });
             orders.Items.Add(o);
         }
         private void ShowEdit(object sender, RoutedEventArgs e)

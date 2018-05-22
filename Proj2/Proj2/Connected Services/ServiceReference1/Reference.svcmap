@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="0370aa73-745a-4f9e-ab5b-674a099688cc" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:60789/AccesService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="AccesService.xsd" MetadataType="Schema" ID="3b341cc7-9ac6-42f1-8a65-98d6f4562239" SourceId="1" SourceUrl="http://localhost:60789/AccesService.svc?xsd=xsd2" />
+    <MetadataFile FileName="AccesService1.xsd" MetadataType="Schema" ID="8e0321cd-0292-485b-b246-8fa3ff362a8a" SourceId="1" SourceUrl="http://localhost:60789/AccesService.svc?xsd=xsd0" />
+    <MetadataFile FileName="AccesService.disco" MetadataType="Disco" ID="727a3e51-9f43-4b30-bca3-fa90d04308c3" SourceId="1" SourceUrl="http://localhost:60789/AccesService.svc?disco" />
+    <MetadataFile FileName="AccesService2.xsd" MetadataType="Schema" ID="d0014904-3ce2-4761-af66-57b41dd28b4c" SourceId="1" SourceUrl="http://localhost:60789/AccesService.svc?xsd=xsd1" />
+    <MetadataFile FileName="AccessService.wsdl" MetadataType="Wsdl" ID="8c6a060d-3169-4262-bad6-ce4b405e2f44" SourceId="1" SourceUrl="http://localhost:60789/AccesService.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

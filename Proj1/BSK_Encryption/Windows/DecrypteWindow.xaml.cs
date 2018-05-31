@@ -65,18 +65,12 @@ namespace BSK_Encryption.Windows
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
-                if (sender.Equals(source))
-                {
-                    viewModel.InputPath = openFileDialog.FileName;
-                }
-                else if (sender.Equals(dest))
-                {
-                    viewModel.OutputPath = openFileDialog.FileName;
-                }
-                else
-                {
-                    throw new Exception("Wtf?, What have u click?");
-                }
+                viewModel.InputPath = openFileDialog.FileName;
+
+                int lastDot = openFileDialog.FileName.LastIndexOf('.');
+
+                viewModel.OutputPath = openFileDialog.FileName.Substring(0, lastDot) + "decrypt" + openFileDialog.FileName.Substring(lastDot);
+
             }
         }
         #endregion
@@ -99,10 +93,11 @@ namespace BSK_Encryption.Windows
                         {
                             Task copyTask = decryptedStream.CopyToAsync(output);
 
-                            new Thread(() => StartUpdatingprogress(input, copyTask, 50, 100))
-                                .Start();
+                            var th = new Thread(() => StartUpdatingprogress(input, copyTask, 50, 100));
+                            th.Start();
 
                             await copyTask;
+                            th.Join();
                         }
                     }
                 }
@@ -163,10 +158,10 @@ namespace BSK_Encryption.Windows
 
                         Task copyTask = input.CopyToAsync(output);
 
-                        new Thread(() => StartUpdatingprogress(input, copyTask, 0, 50))
-                           .Start();
-
+                        var th = new Thread(() => StartUpdatingprogress(input, copyTask, 0, 50));
+                        th.Start();
                         copyTask.Wait();
+                        th.Join();
                     }
                 }
             }

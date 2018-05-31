@@ -85,9 +85,7 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Button  x:Name="dest" Click="BrowseButton_Click">Browse</Button>
-                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">

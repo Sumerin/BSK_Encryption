@@ -8,7 +8,7 @@ namespace BSK_Encryption.ViewModels
     {
         #region Field
         private CipherMode cipher;
-        private int blockSize;
+        private int keySize;
         private List<string> users;
         #endregion
 
@@ -22,12 +22,12 @@ namespace BSK_Encryption.ViewModels
                 OnPropertyChanged();
             }
         }
-        public int BlockSize
+        public int KeySize
         {
-            get { return blockSize; }
+            get { return keySize; }
             set
             {
-                blockSize = value;
+                keySize = value;
                 OnPropertyChanged();
             }
         }

@@ -13,7 +13,7 @@ namespace BSK_Encryption.Encryption
 
         public static byte[] Encrypte(byte[] data, string username)
         {
-            var rsa = new RSACryptoServiceProvider();
+            var rsa = new RSACryptoServiceProvider(4096);
 
             string publicPath = Path.Combine(Const.KEY_FOLDER_PATH, Const.PUBLIC_KEY_FOLDER, username);
             string publicKeyFile = Path.Combine(publicPath, Const.PUBLIC_KEY_FILENAME);
@@ -29,7 +29,7 @@ namespace BSK_Encryption.Encryption
 
         public static byte[] Decrypte(byte[] data, string username, byte[] keyPharse)
         {
-            var rsa = new RSACryptoServiceProvider();
+            var rsa = new RSACryptoServiceProvider(4096);
 
             string privatePath = Path.Combine(Const.KEY_FOLDER_PATH, Const.PRIVATE_KEY_FOLDER, username);
             string privateKeyFile = Path.Combine(privatePath, Const.PRIVATE_KEY_FILENAME);
@@ -50,9 +50,8 @@ namespace BSK_Encryption.Encryption
             }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
                 throw new Exception("Wrong keypharse");
             }
             return rsa.Decrypt(data, true);
@@ -66,7 +65,7 @@ namespace BSK_Encryption.Encryption
         /// <param name="keyPharse"></param>
         public static void GenerateKey(string username,byte[] keyPharse)
         {
-            var rsa = new RSACryptoServiceProvider();
+            var rsa = new RSACryptoServiceProvider(4096);
             string publicPath = Path.Combine(Const.KEY_FOLDER_PATH, Const.PUBLIC_KEY_FOLDER, username);
             string privatePath = Path.Combine(Const.KEY_FOLDER_PATH, Const.PRIVATE_KEY_FOLDER, username);
 

@@ -43,7 +43,7 @@ namespace BSK_Encryption.Windows
             {
                 viewModel.Progress = 0;
                 viewModel.IsNotRunning = false;
-                var aes = new AesEncryptionApi(viewModel.Cipher, viewModel.BlockSize, 32);
+                var aes = new AesEncryptionApi(viewModel.Cipher, 128, viewModel.KeySize);
                 aes.Initialize();
                 if (viewModel.Users == null || viewModel.Users?.Count == 0)
                 {
@@ -73,12 +73,14 @@ namespace BSK_Encryption.Windows
                         {
                             Task copyTask = sourceEncypted.CopyToAsync(output);
 
-                            new Thread(() => StartUpdatingprogress(source, copyTask))
-                                .Start();
+                            var th = new Thread(() => StartUpdatingprogress(source, copyTask));
+                            th.Start();
 
                             await copyTask;
+                            th.Join();
                         }
                     }
+                    output.Close();
                 }
 
             }
@@ -114,18 +116,11 @@ namespace BSK_Encryption.Windows
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
-                if (sender.Equals(source))
-                {
-                    viewModel.InputPath = openFileDialog.FileName;
-                }
-                else if (sender.Equals(dest))
-                {
-                    viewModel.OutputPath = openFileDialog.FileName;
-                }
-                else
-                {
-                    throw new Exception("Wtf?, What have u click?");
-                }
+                viewModel.InputPath = openFileDialog.FileName;
+
+                int lastDot = openFileDialog.FileName.LastIndexOf('.');
+
+                viewModel.OutputPath = openFileDialog.FileName.Substring(0, lastDot) + "encrypt" + openFileDialog.FileName.Substring(lastDot);
             }
         }
 

@@ -86,9 +86,7 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Button  x:Name="dest" Click="BrowseButton_Click">Browse</Button>
-                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
@@ -100,9 +98,9 @@
                         <ComboBoxItem >OFB</ComboBoxItem>
                         <ComboBoxItem >CFB</ComboBoxItem>
                     </ComboBox>
-                    <Label Margin="5">Block Size:</Label>
+                    <Label Margin="5">Key Size:</Label>
                     <ComboBox Margin="5" 
-                              SelectedValue="{Binding BlockSize , Converter={StaticResource BlockConverter}}">
+                              SelectedValue="{Binding KeySize , Converter={StaticResource BlockConverter}}">
                         <ComboBoxItem IsSelected="True" >128</ComboBoxItem>
                         <ComboBoxItem >192</ComboBoxItem>
                         <ComboBoxItem >256</ComboBoxItem>

@@ -84,7 +84,7 @@ namespace BSK_Encryption.Encryption
             int result = GetDiskFreeSpaceW(info.Directory.Root.FullName, out sectorsPerCluster, out bytesPerSector, out dummy, out dummy);
             string basePassword = String.Format("l{0}ol{1}{2}{3}{4}{5}", DateTime.Now, dummy, sectorsPerCluster, bytesPerSector, result, info.Name);
 
-            key = GenerateByteArray(basePassword, keySize);
+            key = GenerateByteArray(basePassword, keySize/8);
 
             iV = GenerateByteArray(basePassword.Reverse().ToString(), 16);
         }
@@ -158,6 +158,7 @@ namespace BSK_Encryption.Encryption
             AesManaged myAes = new AesManaged();
             myAes.Mode = cipherMode;
             myAes.IV = iV;
+            myAes.KeySize = this.keySize;
             myAes.Key = this.key;
 
             ICryptoTransform encryptor = myAes.CreateEncryptor();

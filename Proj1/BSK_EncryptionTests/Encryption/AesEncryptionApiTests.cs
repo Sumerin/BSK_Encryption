@@ -90,9 +90,6 @@ namespace BSK_Encryption.Encryption.Tests
             var aes = new AesEncryptionApi(CipherMode.CBC, 128, 32);
             aes.Initialize();
 
-            bool isAdded = aes.addUser(user);
-
-            Assert.IsTrue(isAdded);
             int orginalByte;
             int finnalByte;
 
@@ -152,8 +149,6 @@ namespace BSK_Encryption.Encryption.Tests
 
             var aes = new AesEncryptionApi(CipherMode.CBC, 128, 32);
             aes.Initialize();
-
-            bool isAdded = aes.addUser(user);
 
             int orginalByte;
             int finnalByte;

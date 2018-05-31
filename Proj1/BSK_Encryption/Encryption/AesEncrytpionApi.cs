@@ -199,6 +199,11 @@ namespace BSK_Encryption.Encryption
             var user = (from u in userList
                        where u.Name.Equals(userName)
                        select u).FirstOrDefault();
+
+            if(user==null)
+            {
+                throw new Exception("Wrong username");
+            }
             myAes.Key = user.LoadKey(keyPharse);
             myAes.BlockSize = this.blockSize;
 

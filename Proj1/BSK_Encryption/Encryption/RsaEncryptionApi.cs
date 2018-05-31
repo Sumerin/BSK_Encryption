@@ -33,6 +33,12 @@ namespace BSK_Encryption.Encryption
 
             string privatePath = Path.Combine(Const.KEY_FOLDER_PATH, Const.PRIVATE_KEY_FOLDER, username);
             string privateKeyFile = Path.Combine(privatePath, Const.PRIVATE_KEY_FILENAME);
+
+            if(!File.Exists(privateKeyFile))
+            {
+                throw new Exception("No user key");
+            }
+
             try
             {
 

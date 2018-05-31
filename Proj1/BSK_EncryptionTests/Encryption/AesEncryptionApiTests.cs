@@ -87,7 +87,7 @@ namespace BSK_Encryption.Encryption.Tests
 
             File.Copy(Path.Combine(resourcePath, filename), file);
 
-            var aes = new AesEncryptionApi(CipherMode.CBC, 128, 32);
+            var aes = new AesEncryptionApi(CipherMode.CBC, 128, 128);
             aes.Initialize();
 
             int orginalByte;

@@ -34,13 +34,17 @@ namespace BSK_Encryption.Windows
             }
 
             string path = Path.Combine(Const.KEY_FOLDER_PATH, Const.PUBLIC_KEY_FOLDER);
-            foreach (string username in Directory.EnumerateDirectories(path))
-            {
-                var user = new UserGridElement(Path.GetFileName(username));
 
-                if (!UserViewModel.Instance.AllUsers.Contains(user))
+            if (Directory.Exists(path))
+            {
+                foreach (string username in Directory.EnumerateDirectories(path))
                 {
-                    UserViewModel.Instance.AllUsers.Add(user);
+                    var user = new UserGridElement(Path.GetFileName(username));
+
+                    if (!UserViewModel.Instance.AllUsers.Contains(user))
+                    {
+                        UserViewModel.Instance.AllUsers.Add(user);
+                    }
                 }
             }
         }

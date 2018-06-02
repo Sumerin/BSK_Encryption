@@ -1,0 +1,83 @@
+\hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream}{}\section{B\+S\+K\+\_\+\+Encryption.\+Encryption.\+O\+F\+B.\+O\+F\+B\+Stream Class Reference}
+\label{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream}\index{B\+S\+K\+\_\+\+Encryption.\+Encryption.\+O\+F\+B.\+O\+F\+B\+Stream@{B\+S\+K\+\_\+\+Encryption.\+Encryption.\+O\+F\+B.\+O\+F\+B\+Stream}}
+
+
+Extension to the Rijandael\+Managed for using \mbox{\hyperlink{namespace_b_s_k___encryption_1_1_encryption_1_1_o_f_b}{O\+FB}} mode.  
+
+
+Inheritance diagram for B\+S\+K\+\_\+\+Encryption.\+Encryption.\+O\+F\+B.\+O\+F\+B\+Stream\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_ad0ce9d5e1753dd3b01fd6c883f7c794a}{O\+F\+B\+Stream}} (Stream parent, Symmetric\+Algorithm algo, Crypto\+Stream\+Mode mode)
+\begin{DoxyCompactList}\small\item\em Constructor for the extension stream. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_a69241ac77bb1f463519624c31aeae7c4}\label{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_a69241ac77bb1f463519624c31aeae7c4}} 
+override int {\bfseries Read} (byte\mbox{[}$\,$\mbox{]} buffer, int offset, int count)
+\item 
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_a696a23586bf7ec0d4a60d98f8078f47d}\label{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_a696a23586bf7ec0d4a60d98f8078f47d}} 
+override void {\bfseries Write} (byte\mbox{[}$\,$\mbox{]} buffer, int offset, int count)
+\item 
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_a69c8c165f3dd34f31c9fe799d5ca0553}\label{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_a69c8c165f3dd34f31c9fe799d5ca0553}} 
+override void {\bfseries Flush} ()
+\item 
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_a1ddfc639f68b7da48e6b86922409213b}\label{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_a1ddfc639f68b7da48e6b86922409213b}} 
+override long {\bfseries Seek} (long offset, System.\+I\+O.\+Seek\+Origin origin)
+\item 
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_a120e8bfecd3b9bd050088b397e4c3787}\label{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_a120e8bfecd3b9bd050088b397e4c3787}} 
+override void {\bfseries Set\+Length} (long value)
+\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_a3218b3890ff3cab4edccd36a77b8189c}\label{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_a3218b3890ff3cab4edccd36a77b8189c}} 
+override bool {\bfseries Can\+Read}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_acff50613f8ea2e3276a2600a68074b92}\label{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_acff50613f8ea2e3276a2600a68074b92}} 
+override bool {\bfseries Can\+Write}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_afef125ad81425e51e1baf67447841abf}\label{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_afef125ad81425e51e1baf67447841abf}} 
+override bool {\bfseries Can\+Seek}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_a829cfc75724edfe38e2c5c8c007a1724}\label{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_a829cfc75724edfe38e2c5c8c007a1724}} 
+override long {\bfseries Position}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_aa9ecacc52e2274164d959ee66901788b}\label{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_aa9ecacc52e2274164d959ee66901788b}} 
+override long {\bfseries Length}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Extension to the Rijandael\+Managed for using \mbox{\hyperlink{namespace_b_s_k___encryption_1_1_encryption_1_1_o_f_b}{O\+FB}} mode. 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_ad0ce9d5e1753dd3b01fd6c883f7c794a}\label{class_b_s_k___encryption_1_1_encryption_1_1_o_f_b_1_1_o_f_b_stream_ad0ce9d5e1753dd3b01fd6c883f7c794a}} 
+\index{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+O\+F\+B\+::\+O\+F\+B\+Stream@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+O\+F\+B\+::\+O\+F\+B\+Stream}!O\+F\+B\+Stream@{O\+F\+B\+Stream}}
+\index{O\+F\+B\+Stream@{O\+F\+B\+Stream}!B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+O\+F\+B\+::\+O\+F\+B\+Stream@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+O\+F\+B\+::\+O\+F\+B\+Stream}}
+\subsubsection{\texorpdfstring{O\+F\+B\+Stream()}{OFBStream()}}
+{\footnotesize\ttfamily B\+S\+K\+\_\+\+Encryption.\+Encryption.\+O\+F\+B.\+O\+F\+B\+Stream.\+O\+F\+B\+Stream (\begin{DoxyParamCaption}\item[{Stream}]{parent,  }\item[{Symmetric\+Algorithm}]{algo,  }\item[{Crypto\+Stream\+Mode}]{mode }\end{DoxyParamCaption})}
+
+
+
+Constructor for the extension stream. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Stream tha is given to be encrypted.\\
+\hline
+{\em algo} & Rijandael\+Managed object.\\
+\hline
+{\em mode} & The read or Write option.\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+B\+S\+K\+\_\+\+Encryption/\+Encryption/\+O\+F\+B/O\+F\+B\+Stream.\+cs\end{DoxyCompactItemize}

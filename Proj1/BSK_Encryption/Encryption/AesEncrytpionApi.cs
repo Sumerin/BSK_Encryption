@@ -9,6 +9,9 @@ using System.Xml;
 
 namespace BSK_Encryption.Encryption
 {
+    /// <summary>
+    /// Api that gives CBC, ECB, CFB, OFB Crypto options by merging diffrent implementation form internet.
+    /// </summary>
     public class AesEncryptionApi
     {
         #region field
@@ -24,6 +27,12 @@ namespace BSK_Encryption.Encryption
         #endregion
 
         #region Constructors
+        /// <summary>
+        /// Constructor that require further initialize method.
+        /// </summary>
+        /// <param name="ciphermode">type of encryption.</param>
+        /// <param name="blockSize">Size of single encryption block</param>
+        /// <param name="keySize">Size of the Key</param>
         public AesEncryptionApi(CipherMode ciphermode, int blockSize, int keySize)
         {
             this.cipherMode = ciphermode;
@@ -31,6 +40,13 @@ namespace BSK_Encryption.Encryption
             this.keySize = keySize;
         }
 
+        /// <summary>
+        /// Constructor that assign password.
+        /// </summary>
+        /// <param name="ciphermode">type of encryption.</param>
+        /// <param name="blockSize">Size of single encryption block</param>
+        /// <param name="keySize">Size of the Key</param>
+        /// <param name="password">Password for ecryption and decryption</param>
         public AesEncryptionApi(CipherMode ciphermode, int blockSize, int keySize, byte[] password)
         {
             this.cipherMode = ciphermode;
@@ -50,8 +66,8 @@ namespace BSK_Encryption.Encryption
         /// </summary>
         /// <param name="inputPath">Encrypted file</param>
         /// <param name="user">Authorized User</param>
-        /// <returns></returns>
-        internal static AesEncryptionApi FromXml(XmlReader reader)
+        /// <returns>Object of type <c>AesEncryptionApi</c> deserilized from file.</returns>
+        public static AesEncryptionApi FromXml(XmlReader reader)
         {
             var aes = new AesEncryptionApi();
             reader.ReadToFollowing("KeySize");
@@ -115,7 +131,7 @@ namespace BSK_Encryption.Encryption
         /// Add user to the approved users.
         /// </summary>
         /// <param name="name">Name of the user</param>
-        /// <returns><c>true</c> if user exists, otherwise <c>false</c> </returns>
+        /// <returns><c>true</c> if user exists, otherwise <c>false</c></returns>
         public bool addUser(string name)
         {
             string userPath = Path.Combine(Const.KEY_FOLDER_PATH, Const.PUBLIC_KEY_FOLDER, name);

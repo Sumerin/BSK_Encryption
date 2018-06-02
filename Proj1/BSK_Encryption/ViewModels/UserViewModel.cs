@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace BSK_Encryption.ViewModels
 {
+    /// <summary>
+    /// Singleton to remember authorized users in process.
+    /// </summary>
     public class UserViewModel
     {
         private static UserViewModel instance;

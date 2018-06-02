@@ -8,7 +8,7 @@ using System.Windows.Data;
 namespace BSK_Encryption.Windows
 {
     /// <summary>
-    /// Interaction logic for Users.xaml
+    /// Interaction logic for UsersWindow.xaml
     /// </summary>
     public partial class UsersWindow : Window
     {

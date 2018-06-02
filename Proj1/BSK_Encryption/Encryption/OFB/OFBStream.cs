@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace BSK_Encryption.Encryption.OFB
 {
+    /// <summary>
+    /// Extension to the RijandaelManaged for using OFB mode.
+    /// </summary>
     public class OFBStream : Stream
     {
         private const int BLOCKS = 16;
@@ -20,6 +23,12 @@ namespace BSK_Encryption.Encryption.OFB
         private int keyStreamBufferOffset;
         private byte[] readWriteBuffer;
 
+        /// <summary>
+        /// Constructor for the extension stream.
+        /// </summary>
+        /// <param name="parent">Stream tha is given to be encrypted.</param>
+        /// <param name="algo">RijandaelManaged object.</param>
+        /// <param name="mode">The read or Write option.</param>
         public OFBStream(Stream parent, SymmetricAlgorithm algo, CryptoStreamMode mode)
         {
             if (algo.Mode != CipherMode.CBC)

@@ -4,9 +4,17 @@ using System.Text;
 
 namespace BSK_Encryption.Encryption
 {
-    internal class SHA256EncryptionApi
+    /// <summary>
+    /// Api that handles the hasing method.
+    /// </summary>
+    public class SHA256EncryptionApi
     {
-        internal static byte[] getHashSha256(string keyPharse)
+        /// <summary>
+        /// Hash the data using SHA-256.
+        /// </summary>
+        /// <param name="keyPharse">String to be hashed(keypharse for private key).</param>
+        /// <returns>Hashed data.</returns>
+        public static byte[] getHashSha256(string keyPharse)
         {
             byte[] bytes = Encoding.Unicode.GetBytes(keyPharse);
             SHA256Managed hashstring = new SHA256Managed();

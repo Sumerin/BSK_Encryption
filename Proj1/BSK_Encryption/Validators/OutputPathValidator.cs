@@ -4,6 +4,9 @@ using System.Windows.Controls;
 
 namespace BSK_Encryption.Validators
 {
+    /// <summary>
+    /// Validation for output path.
+    /// </summary>
     public class OutputPathValidator : ValidationRule
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)

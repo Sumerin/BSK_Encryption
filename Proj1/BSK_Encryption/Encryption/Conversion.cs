@@ -7,13 +7,16 @@ using System.Threading.Tasks;
 
 namespace BSK_Encryption.Encryption
 {
+    /// <summary>
+    /// Handles the conversion form file(string) to functional object. 
+    /// </summary>
     public static class Conversion
     {
         /// <summary>
         /// Conversion from string to Cipher Mode used at loading state.
         /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
+        /// <param name="str">Cipher mode in string</param>
+        /// <returns>Enum CipherMode.</returns>
         public static CipherMode CipherFromString(string str)
         {
             switch(str)
@@ -31,10 +34,10 @@ namespace BSK_Encryption.Encryption
         }
 
         /// <summary>
-        ///  Conversion from string to array of bytes used at loading state.
+        /// Conversion from string to array of bytes used at loading state.
         /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
+        /// <param name="str">bytesString</param>
+        /// <returns>Array of bytes</returns>
         public static byte[] ByteArrayFromString(string str)
         {
             var octets = str.Split('.');

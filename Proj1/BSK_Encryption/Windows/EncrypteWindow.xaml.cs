@@ -12,7 +12,7 @@ using System.Xml;
 namespace BSK_Encryption.Windows
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for EncrypteWindow.xaml
     /// </summary>
     public partial class EncrypteWindow : Window
     {

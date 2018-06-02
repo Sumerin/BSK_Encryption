@@ -5,6 +5,9 @@ using System.Windows.Data;
 
 namespace BSK_Encryption.Converters
 {
+    /// <summary>
+    /// Converts int to string and back.
+    /// </summary>
     public class BlockConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

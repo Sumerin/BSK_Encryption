@@ -1,0 +1,121 @@
+\hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_user}{}\section{B\+S\+K\+\_\+\+Encryption.\+Encryption.\+User Class Reference}
+\label{class_b_s_k___encryption_1_1_encryption_1_1_user}\index{B\+S\+K\+\_\+\+Encryption.\+Encryption.\+User@{B\+S\+K\+\_\+\+Encryption.\+Encryption.\+User}}
+
+
+Container for user/\+Rsa\+\_\+password manage.  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_user_aa527816e42c0943ef512e6556faf3563}\label{class_b_s_k___encryption_1_1_encryption_1_1_user_aa527816e42c0943ef512e6556faf3563}} 
+{\bfseries User} (string name)
+\item 
+void \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_user_a881a5e8ff2f140aa2c05be2213522a5f}{Write\+To\+Xml}} (Xml\+Writer output)
+\begin{DoxyCompactList}\small\item\em Writes user from xml file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_user_a7f44735ece5103022d100d3b5780e82d}{Store\+Key}} (byte\mbox{[}$\,$\mbox{]} key)
+\begin{DoxyCompactList}\small\item\em Encrypt with public key and store the session key. \end{DoxyCompactList}\item 
+byte \mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_user_a60bacb1a794eae94f4f38e3fc3801e03}{Load\+Key}} (string key\+Pharse)
+\begin{DoxyCompactList}\small\item\em Decrypt with private key. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_user}{User}} \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_user_ae5f1c5220e3588843a0cd2850d8bf61a}{From\+Xml}} (Xml\+Reader input)
+\begin{DoxyCompactList}\small\item\em Load config for user from xml file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+string \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_user_a00edfd3ff33285f11bc3dfdb2657f2a9}{Name}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Name of the user. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Container for user/\+Rsa\+\_\+password manage. 
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_user_ae5f1c5220e3588843a0cd2850d8bf61a}\label{class_b_s_k___encryption_1_1_encryption_1_1_user_ae5f1c5220e3588843a0cd2850d8bf61a}} 
+\index{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User}!From\+Xml@{From\+Xml}}
+\index{From\+Xml@{From\+Xml}!B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User}}
+\subsubsection{\texorpdfstring{From\+Xml()}{FromXml()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_user}{User}} B\+S\+K\+\_\+\+Encryption.\+Encryption.\+User.\+From\+Xml (\begin{DoxyParamCaption}\item[{Xml\+Reader}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Load config for user from xml file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & Opened xml file.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Object of type {\ttfamily \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_user}{User}}} deserilized from file.
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_user_a60bacb1a794eae94f4f38e3fc3801e03}\label{class_b_s_k___encryption_1_1_encryption_1_1_user_a60bacb1a794eae94f4f38e3fc3801e03}} 
+\index{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User}!Load\+Key@{Load\+Key}}
+\index{Load\+Key@{Load\+Key}!B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User}}
+\subsubsection{\texorpdfstring{Load\+Key()}{LoadKey()}}
+{\footnotesize\ttfamily byte \mbox{[}$\,$\mbox{]} B\+S\+K\+\_\+\+Encryption.\+Encryption.\+User.\+Load\+Key (\begin{DoxyParamCaption}\item[{string}]{key\+Pharse }\end{DoxyParamCaption})}
+
+
+
+Decrypt with private key. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key\+Pharse} & keypharse to decrypte private key\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Decrypted session key
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_user_a7f44735ece5103022d100d3b5780e82d}\label{class_b_s_k___encryption_1_1_encryption_1_1_user_a7f44735ece5103022d100d3b5780e82d}} 
+\index{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User}!Store\+Key@{Store\+Key}}
+\index{Store\+Key@{Store\+Key}!B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User}}
+\subsubsection{\texorpdfstring{Store\+Key()}{StoreKey()}}
+{\footnotesize\ttfamily void B\+S\+K\+\_\+\+Encryption.\+Encryption.\+User.\+Store\+Key (\begin{DoxyParamCaption}\item[{byte \mbox{[}$\,$\mbox{]}}]{key }\end{DoxyParamCaption})}
+
+
+
+Encrypt with public key and store the session key. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & Key to be stored in user container.\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_user_a881a5e8ff2f140aa2c05be2213522a5f}\label{class_b_s_k___encryption_1_1_encryption_1_1_user_a881a5e8ff2f140aa2c05be2213522a5f}} 
+\index{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User}!Write\+To\+Xml@{Write\+To\+Xml}}
+\index{Write\+To\+Xml@{Write\+To\+Xml}!B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User}}
+\subsubsection{\texorpdfstring{Write\+To\+Xml()}{WriteToXml()}}
+{\footnotesize\ttfamily void B\+S\+K\+\_\+\+Encryption.\+Encryption.\+User.\+Write\+To\+Xml (\begin{DoxyParamCaption}\item[{Xml\+Writer}]{output }\end{DoxyParamCaption})}
+
+
+
+Writes user from xml file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & Opened xml file.\\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Property Documentation}
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_user_a00edfd3ff33285f11bc3dfdb2657f2a9}\label{class_b_s_k___encryption_1_1_encryption_1_1_user_a00edfd3ff33285f11bc3dfdb2657f2a9}} 
+\index{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User}!Name@{Name}}
+\index{Name@{Name}!B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+User}}
+\subsubsection{\texorpdfstring{Name}{Name}}
+{\footnotesize\ttfamily string B\+S\+K\+\_\+\+Encryption.\+Encryption.\+User.\+Name\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Name of the user. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+B\+S\+K\+\_\+\+Encryption/\+Encryption/User.\+cs\end{DoxyCompactItemize}

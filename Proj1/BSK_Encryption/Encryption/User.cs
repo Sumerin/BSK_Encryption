@@ -4,17 +4,24 @@ using System.Xml;
 
 namespace BSK_Encryption.Encryption
 {
-    internal class User
+    /// <summary>
+    /// Container for user/Rsa_password manage.
+    /// </summary>
+    public class User
     {
         /// <summary>
         /// Username.
         /// </summary>
         private string name;
+        
         /// <summary>
         /// Encrypted AES key by user RSA public key.
         /// </summary>
         private byte[] key;
-
+        
+        /// <summary>
+        /// Name of the user.
+        /// </summary>
         public string Name
         {
             get
@@ -34,9 +41,9 @@ namespace BSK_Encryption.Encryption
 
         #region Methods
         /// <summary>
-        /// Writes user form xml file.
+        /// Writes user from xml file.
         /// </summary>
-        /// <param name="output">Opened xml file</param>
+        /// <param name="output">Opened xml file.</param>
         public void WriteToXml(XmlWriter output)
         {
             output.WriteStartElement("User");
@@ -51,8 +58,8 @@ namespace BSK_Encryption.Encryption
         /// <summary>
         /// Load config for user from xml file.
         /// </summary>
-        /// <param name="input">Opened xml file</param>
-        /// <returns></returns>
+        /// <param name="input">Opened xml file.</param>
+        /// <returns>Object of type <c>User</c> deserilized from file.</returns>
         public static User FromXml(XmlReader input)
         {
             var user = new User();
@@ -66,10 +73,10 @@ namespace BSK_Encryption.Encryption
         }
 
         /// <summary>
-        /// Store key with encryption of public key
+        /// Encrypt with public key and store the session key.
         /// </summary>
-        /// <param name="key"></param>
-        internal void StoreKey(byte[] key)
+        /// <param name="key">Key to be stored in user container.</param>
+        public void StoreKey(byte[] key)
         {
             this.key = RsaEncryptionApi.Encrypte(key, this.name);
         }
@@ -77,11 +84,11 @@ namespace BSK_Encryption.Encryption
 
 
         /// <summary>
-        /// TODO
-        /// Shows the dialog for pharse input.
+        /// Decrypt with private key.
         /// </summary>
-        /// <returns></returns>
-        internal byte[] LoadKey(string keyPharse)
+        /// <param name="keyPharse">keypharse to decrypte private key</param>
+        /// <returns>Decrypted session key</returns>
+        public byte[] LoadKey(string keyPharse)
         {
             byte [] keyPharseHash = SHA256EncryptionApi.getHashSha256(keyPharse);
             return RsaEncryptionApi.Decrypte(this.key, this.name, keyPharseHash);

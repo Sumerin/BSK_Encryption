@@ -5,6 +5,9 @@ using System.Windows.Data;
 
 namespace BSK_Encryption.Converters
 {
+    /// <summary>
+    /// Converts to int from CipherMode and back.
+    /// </summary>
     public class CipherConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

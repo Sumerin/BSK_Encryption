@@ -1,0 +1,88 @@
+\hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_rsa_encryption_api}{}\section{B\+S\+K\+\_\+\+Encryption.\+Encryption.\+Rsa\+Encryption\+Api Class Reference}
+\label{class_b_s_k___encryption_1_1_encryption_1_1_rsa_encryption_api}\index{B\+S\+K\+\_\+\+Encryption.\+Encryption.\+Rsa\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption.\+Encryption.\+Rsa\+Encryption\+Api}}
+
+
+Api that handles Rsa \mbox{\hyperlink{namespace_b_s_k___encryption_1_1_encryption}{Encryption}} using keys for given user. \mbox{\hyperlink{namespace_b_s_k___encryption_1_1_encryption}{Encryption}} many to one.  
+
+
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static byte \mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_rsa_encryption_api_a60bd2ada99112276d7b50b6096269187}{Encrypte}} (byte\mbox{[}$\,$\mbox{]} data, string username)
+\begin{DoxyCompactList}\small\item\em Encrypt data using username public key. \end{DoxyCompactList}\item 
+static byte \mbox{[}$\,$\mbox{]} \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_rsa_encryption_api_ab085345c3144ba43e1dba49795f7faeb}{Decrypte}} (byte\mbox{[}$\,$\mbox{]} data, string username, byte\mbox{[}$\,$\mbox{]} key\+Pharse)
+\begin{DoxyCompactList}\small\item\em Decrypt data using username private key. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_rsa_encryption_api_a9487324e4e7f5f3e112f4fcd56551102}{Generate\+Key}} (string username, byte\mbox{[}$\,$\mbox{]} key\+Pharse)
+\begin{DoxyCompactList}\small\item\em Generate key and save it. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Api that handles Rsa \mbox{\hyperlink{namespace_b_s_k___encryption_1_1_encryption}{Encryption}} using keys for given user. \mbox{\hyperlink{namespace_b_s_k___encryption_1_1_encryption}{Encryption}} many to one. 
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_rsa_encryption_api_ab085345c3144ba43e1dba49795f7faeb}\label{class_b_s_k___encryption_1_1_encryption_1_1_rsa_encryption_api_ab085345c3144ba43e1dba49795f7faeb}} 
+\index{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Rsa\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Rsa\+Encryption\+Api}!Decrypte@{Decrypte}}
+\index{Decrypte@{Decrypte}!B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Rsa\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Rsa\+Encryption\+Api}}
+\subsubsection{\texorpdfstring{Decrypte()}{Decrypte()}}
+{\footnotesize\ttfamily static byte \mbox{[}$\,$\mbox{]} B\+S\+K\+\_\+\+Encryption.\+Encryption.\+Rsa\+Encryption\+Api.\+Decrypte (\begin{DoxyParamCaption}\item[{byte \mbox{[}$\,$\mbox{]}}]{data,  }\item[{string}]{username,  }\item[{byte \mbox{[}$\,$\mbox{]}}]{key\+Pharse }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Decrypt data using username private key. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Data to decrypt(session key).\\
+\hline
+{\em username} & Allowed user\\
+\hline
+{\em key\+Pharse} & Key to decrypt private key\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Decrypted data.
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_rsa_encryption_api_a60bd2ada99112276d7b50b6096269187}\label{class_b_s_k___encryption_1_1_encryption_1_1_rsa_encryption_api_a60bd2ada99112276d7b50b6096269187}} 
+\index{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Rsa\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Rsa\+Encryption\+Api}!Encrypte@{Encrypte}}
+\index{Encrypte@{Encrypte}!B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Rsa\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Rsa\+Encryption\+Api}}
+\subsubsection{\texorpdfstring{Encrypte()}{Encrypte()}}
+{\footnotesize\ttfamily static byte \mbox{[}$\,$\mbox{]} B\+S\+K\+\_\+\+Encryption.\+Encryption.\+Rsa\+Encryption\+Api.\+Encrypte (\begin{DoxyParamCaption}\item[{byte \mbox{[}$\,$\mbox{]}}]{data,  }\item[{string}]{username }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Encrypt data using username public key. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Data to encrypt(session key).\\
+\hline
+{\em username} & Destination user\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Encrypted data.
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_rsa_encryption_api_a9487324e4e7f5f3e112f4fcd56551102}\label{class_b_s_k___encryption_1_1_encryption_1_1_rsa_encryption_api_a9487324e4e7f5f3e112f4fcd56551102}} 
+\index{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Rsa\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Rsa\+Encryption\+Api}!Generate\+Key@{Generate\+Key}}
+\index{Generate\+Key@{Generate\+Key}!B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Rsa\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Rsa\+Encryption\+Api}}
+\subsubsection{\texorpdfstring{Generate\+Key()}{GenerateKey()}}
+{\footnotesize\ttfamily static void B\+S\+K\+\_\+\+Encryption.\+Encryption.\+Rsa\+Encryption\+Api.\+Generate\+Key (\begin{DoxyParamCaption}\item[{string}]{username,  }\item[{byte \mbox{[}$\,$\mbox{]}}]{key\+Pharse }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Generate key and save it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em username} & Name of the key owner.\\
+\hline
+{\em key\+Pharse} & Key to encrypt private key\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+B\+S\+K\+\_\+\+Encryption/\+Encryption/Rsa\+Encryption\+Api.\+cs\end{DoxyCompactItemize}

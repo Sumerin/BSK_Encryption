@@ -1,0 +1,230 @@
+\hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api}{}\section{B\+S\+K\+\_\+\+Encryption.\+Encryption.\+Aes\+Encryption\+Api Class Reference}
+\label{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api}\index{B\+S\+K\+\_\+\+Encryption.\+Encryption.\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption.\+Encryption.\+Aes\+Encryption\+Api}}
+
+
+Api that gives C\+BC, E\+CB, C\+FB, \mbox{\hyperlink{namespace_b_s_k___encryption_1_1_encryption_1_1_o_f_b}{O\+FB}} Crypto options by merging diffrent implementation form internet.  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_aaeca30b167bea6e2771614e810734002}{Aes\+Encryption\+Api}} (Cipher\+Mode ciphermode, int block\+Size, int key\+Size)
+\begin{DoxyCompactList}\small\item\em Constructor that require further initialize method. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a4529e2907b5939d06c0deae23574c909}{Aes\+Encryption\+Api}} (Cipher\+Mode ciphermode, int block\+Size, int key\+Size, byte\mbox{[}$\,$\mbox{]} password)
+\begin{DoxyCompactList}\small\item\em Constructor that assign password. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a89804f5db642dc4abe751635f1af8df7}{Initialize}} ()
+\begin{DoxyCompactList}\small\item\em Generates key and IV. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a0a40964a924defba499ee3f8c573c87d}{add\+User}} (string name)
+\begin{DoxyCompactList}\small\item\em Add user to the approved users. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a8849055915f670369e4c835bc4b71414}{Write\+To\+Xml}} (Xml\+Writer output)
+\begin{DoxyCompactList}\small\item\em Write current object to file using xml standard. \end{DoxyCompactList}\item 
+Stream \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a7a5c47487ff178032ca8c9e4792d0fd5}{Encrypte\+Stream}} (Stream stream)
+\begin{DoxyCompactList}\small\item\em Encrypte input stream. \end{DoxyCompactList}\item 
+Stream \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_ac15e90b0d83aeaba75361b90d81b7f8b}{Encrypte\+Stream}} (Stream stream, Crypto\+Stream\+Mode mode=Crypto\+Stream\+Mode.\+Read)
+\begin{DoxyCompactList}\small\item\em Encrypte stream. \end{DoxyCompactList}\item 
+Stream \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a2ba1d764ff07efb3dbca0705686a39bc}{Decrypte\+Stream}} (Stream stream, string user\+Name, string key\+Pharse)
+\begin{DoxyCompactList}\small\item\em Decrypte input stream. \end{DoxyCompactList}\item 
+Stream \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a0e296b549e33928ca5634bf2ad309071}{Decrypte\+Stream}} (Stream stream, Crypto\+Stream\+Mode mode=Crypto\+Stream\+Mode.\+Read)
+\begin{DoxyCompactList}\small\item\em Decryptye input stream \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api}{Aes\+Encryption\+Api}} \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a5aed874c297b96310a667a88c9060bf7}{From\+Xml}} (Xml\+Reader reader)
+\begin{DoxyCompactList}\small\item\em Reads the header and prepare Aes algorithm. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Api that gives C\+BC, E\+CB, C\+FB, \mbox{\hyperlink{namespace_b_s_k___encryption_1_1_encryption_1_1_o_f_b}{O\+FB}} Crypto options by merging diffrent implementation form internet. 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_aaeca30b167bea6e2771614e810734002}\label{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_aaeca30b167bea6e2771614e810734002}} 
+\index{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}!Aes\+Encryption\+Api@{Aes\+Encryption\+Api}}
+\index{Aes\+Encryption\+Api@{Aes\+Encryption\+Api}!B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}}
+\subsubsection{\texorpdfstring{Aes\+Encryption\+Api()}{AesEncryptionApi()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily B\+S\+K\+\_\+\+Encryption.\+Encryption.\+Aes\+Encryption\+Api.\+Aes\+Encryption\+Api (\begin{DoxyParamCaption}\item[{Cipher\+Mode}]{ciphermode,  }\item[{int}]{block\+Size,  }\item[{int}]{key\+Size }\end{DoxyParamCaption})}
+
+
+
+Constructor that require further initialize method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ciphermode} & type of encryption.\\
+\hline
+{\em block\+Size} & Size of single encryption block\\
+\hline
+{\em key\+Size} & Size of the Key\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a4529e2907b5939d06c0deae23574c909}\label{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a4529e2907b5939d06c0deae23574c909}} 
+\index{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}!Aes\+Encryption\+Api@{Aes\+Encryption\+Api}}
+\index{Aes\+Encryption\+Api@{Aes\+Encryption\+Api}!B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}}
+\subsubsection{\texorpdfstring{Aes\+Encryption\+Api()}{AesEncryptionApi()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily B\+S\+K\+\_\+\+Encryption.\+Encryption.\+Aes\+Encryption\+Api.\+Aes\+Encryption\+Api (\begin{DoxyParamCaption}\item[{Cipher\+Mode}]{ciphermode,  }\item[{int}]{block\+Size,  }\item[{int}]{key\+Size,  }\item[{byte \mbox{[}$\,$\mbox{]}}]{password }\end{DoxyParamCaption})}
+
+
+
+Constructor that assign password. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ciphermode} & type of encryption.\\
+\hline
+{\em block\+Size} & Size of single encryption block\\
+\hline
+{\em key\+Size} & Size of the Key\\
+\hline
+{\em password} & Password for ecryption and decryption\\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a0a40964a924defba499ee3f8c573c87d}\label{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a0a40964a924defba499ee3f8c573c87d}} 
+\index{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}!add\+User@{add\+User}}
+\index{add\+User@{add\+User}!B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}}
+\subsubsection{\texorpdfstring{add\+User()}{addUser()}}
+{\footnotesize\ttfamily bool B\+S\+K\+\_\+\+Encryption.\+Encryption.\+Aes\+Encryption\+Api.\+add\+User (\begin{DoxyParamCaption}\item[{string}]{name }\end{DoxyParamCaption})}
+
+
+
+Add user to the approved users. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Name of the user\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if user exists, otherwise {\ttfamily false}
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a2ba1d764ff07efb3dbca0705686a39bc}\label{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a2ba1d764ff07efb3dbca0705686a39bc}} 
+\index{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}!Decrypte\+Stream@{Decrypte\+Stream}}
+\index{Decrypte\+Stream@{Decrypte\+Stream}!B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}}
+\subsubsection{\texorpdfstring{Decrypte\+Stream()}{DecrypteStream()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Stream B\+S\+K\+\_\+\+Encryption.\+Encryption.\+Aes\+Encryption\+Api.\+Decrypte\+Stream (\begin{DoxyParamCaption}\item[{Stream}]{stream,  }\item[{string}]{user\+Name,  }\item[{string}]{key\+Pharse }\end{DoxyParamCaption})}
+
+
+
+Decrypte input stream. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stream} & Input Stream\\
+\hline
+{\em user\+Name} & Username associated\\
+\hline
+{\em key\+Pharse} & keypharse for getting key private\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Decrypte Stream
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a0e296b549e33928ca5634bf2ad309071}\label{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a0e296b549e33928ca5634bf2ad309071}} 
+\index{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}!Decrypte\+Stream@{Decrypte\+Stream}}
+\index{Decrypte\+Stream@{Decrypte\+Stream}!B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}}
+\subsubsection{\texorpdfstring{Decrypte\+Stream()}{DecrypteStream()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Stream B\+S\+K\+\_\+\+Encryption.\+Encryption.\+Aes\+Encryption\+Api.\+Decrypte\+Stream (\begin{DoxyParamCaption}\item[{Stream}]{stream,  }\item[{Crypto\+Stream\+Mode}]{mode = {\ttfamily CryptoStreamMode.Read} }\end{DoxyParamCaption})}
+
+
+
+Decryptye input stream 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stream} & \\
+\hline
+{\em password} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a7a5c47487ff178032ca8c9e4792d0fd5}\label{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a7a5c47487ff178032ca8c9e4792d0fd5}} 
+\index{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}!Encrypte\+Stream@{Encrypte\+Stream}}
+\index{Encrypte\+Stream@{Encrypte\+Stream}!B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}}
+\subsubsection{\texorpdfstring{Encrypte\+Stream()}{EncrypteStream()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Stream B\+S\+K\+\_\+\+Encryption.\+Encryption.\+Aes\+Encryption\+Api.\+Encrypte\+Stream (\begin{DoxyParamCaption}\item[{Stream}]{stream }\end{DoxyParamCaption})}
+
+
+
+Encrypte input stream. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stream} & Input Stream\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Encrypted Stream
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_ac15e90b0d83aeaba75361b90d81b7f8b}\label{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_ac15e90b0d83aeaba75361b90d81b7f8b}} 
+\index{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}!Encrypte\+Stream@{Encrypte\+Stream}}
+\index{Encrypte\+Stream@{Encrypte\+Stream}!B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}}
+\subsubsection{\texorpdfstring{Encrypte\+Stream()}{EncrypteStream()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Stream B\+S\+K\+\_\+\+Encryption.\+Encryption.\+Aes\+Encryption\+Api.\+Encrypte\+Stream (\begin{DoxyParamCaption}\item[{Stream}]{stream,  }\item[{Crypto\+Stream\+Mode}]{mode = {\ttfamily CryptoStreamMode.Read} }\end{DoxyParamCaption})}
+
+
+
+Encrypte stream. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stream} & Input Stream\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Encrypted Stream
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a5aed874c297b96310a667a88c9060bf7}\label{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a5aed874c297b96310a667a88c9060bf7}} 
+\index{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}!From\+Xml@{From\+Xml}}
+\index{From\+Xml@{From\+Xml}!B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}}
+\subsubsection{\texorpdfstring{From\+Xml()}{FromXml()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api}{Aes\+Encryption\+Api}} B\+S\+K\+\_\+\+Encryption.\+Encryption.\+Aes\+Encryption\+Api.\+From\+Xml (\begin{DoxyParamCaption}\item[{Xml\+Reader}]{reader }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Reads the header and prepare Aes algorithm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+Path} & Encrypted file\\
+\hline
+{\em user} & Authorized \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_user}{User}}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Object of type {\ttfamily \mbox{\hyperlink{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api}{Aes\+Encryption\+Api}}} deserilized from file.
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a89804f5db642dc4abe751635f1af8df7}\label{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a89804f5db642dc4abe751635f1af8df7}} 
+\index{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}!Initialize@{Initialize}}
+\index{Initialize@{Initialize}!B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}}
+\subsubsection{\texorpdfstring{Initialize()}{Initialize()}}
+{\footnotesize\ttfamily void B\+S\+K\+\_\+\+Encryption.\+Encryption.\+Aes\+Encryption\+Api.\+Initialize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Generates key and IV. 
+
+\mbox{\Hypertarget{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a8849055915f670369e4c835bc4b71414}\label{class_b_s_k___encryption_1_1_encryption_1_1_aes_encryption_api_a8849055915f670369e4c835bc4b71414}} 
+\index{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}!Write\+To\+Xml@{Write\+To\+Xml}}
+\index{Write\+To\+Xml@{Write\+To\+Xml}!B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api@{B\+S\+K\+\_\+\+Encryption\+::\+Encryption\+::\+Aes\+Encryption\+Api}}
+\subsubsection{\texorpdfstring{Write\+To\+Xml()}{WriteToXml()}}
+{\footnotesize\ttfamily void B\+S\+K\+\_\+\+Encryption.\+Encryption.\+Aes\+Encryption\+Api.\+Write\+To\+Xml (\begin{DoxyParamCaption}\item[{Xml\+Writer}]{output }\end{DoxyParamCaption})}
+
+
+
+Write current object to file using xml standard. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & Opened xml output\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+B\+S\+K\+\_\+\+Encryption/\+Encryption/Aes\+Encrytpion\+Api.\+cs\end{DoxyCompactItemize}

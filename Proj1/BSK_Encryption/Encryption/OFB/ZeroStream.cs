@@ -3,7 +3,10 @@ using System.IO;
 
 namespace BSK_Encryption.Encryption.OFB
 {
-    class ZeroStream : System.IO.Stream
+    /// <summary>
+    /// Infinite Stream tha gives always zeros.
+    /// </summary>
+    public class ZeroStream : System.IO.Stream
     {
         public override int Read(byte[] buffer, int offset, int count)
         {

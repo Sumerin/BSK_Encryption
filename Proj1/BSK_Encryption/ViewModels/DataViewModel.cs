@@ -3,7 +3,9 @@ using System.Runtime.CompilerServices;
 
 namespace BSK_Encryption.ViewModels
 {
-
+    /// <summary>
+    /// Context for Cryptography.
+    /// </summary>
     public abstract class DataViewModel : NotifyPropertyChanged
     {
         #region Field
@@ -14,6 +16,9 @@ namespace BSK_Encryption.ViewModels
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Input file path.
+        /// </summary>
         public string InputPath
         {
             get { return inputPath; }
@@ -23,6 +28,9 @@ namespace BSK_Encryption.ViewModels
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// Output file path.
+        /// </summary>
         public string OutputPath
         {
             get { return outputPath; }
@@ -32,6 +40,9 @@ namespace BSK_Encryption.ViewModels
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// Progress of cryptography operation.
+        /// </summary>
         public double Progress
         {
             get
@@ -44,6 +55,9 @@ namespace BSK_Encryption.ViewModels
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// Indicates if process is currently running.
+        /// </summary>
         public bool IsNotRunning
         {
             get

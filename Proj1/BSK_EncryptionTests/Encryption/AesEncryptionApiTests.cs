@@ -21,7 +21,6 @@ namespace BSK_Encryption.Encryption.Tests
 
         string user = "TestGuys";//!! need to create that account
         string keyPharse = "Test";
-        byte[] password = new byte[32];
         string userPublicPath;
         string userPrivatePath;
 
@@ -79,7 +78,7 @@ namespace BSK_Encryption.Encryption.Tests
         }
 
         [TestMethod()]
-        public void SmallFiles()
+        public void SmallFiles__CBC()
         {
             //Arrange
             string filename = "Julian.jpg";
@@ -98,7 +97,7 @@ namespace BSK_Encryption.Encryption.Tests
             //Encrypte
             using (var inputStream = File.OpenRead(file))
             {
-                using (var cryptoStream = aes.EncrypteStream(inputStream, password, CryptoStreamMode.Read))
+                using (var cryptoStream = aes.EncrypteStream(inputStream, CryptoStreamMode.Read))
                 {
                     using (var outputStream = File.OpenWrite(encryptedFile))
                     {
@@ -110,7 +109,127 @@ namespace BSK_Encryption.Encryption.Tests
             //Decrypte
             using (var inputStream = File.OpenRead(encryptedFile))
             {
-                using (var cryptoStream = aes.DecrypteStream(inputStream, password))
+                using (var cryptoStream = aes.DecrypteStream(inputStream))
+                {
+                    using (var outputStream = File.OpenWrite(decryptedFile))
+                    {
+                        cryptoStream.CopyTo(outputStream);
+                    }
+                }
+            }
+            int i = 0;
+            //Assert
+            using (var inputOrginalStream = File.OpenRead(file))
+            {
+                using (var inputFinnalStream = File.OpenRead(decryptedFile))
+                {
+                    Assert.AreEqual(inputOrginalStream.Length, inputFinnalStream.Length);
+
+                    while (inputOrginalStream.Position < inputOrginalStream.Length)
+                    {
+                        orginalByte = inputOrginalStream.ReadByte();
+                        finnalByte = inputFinnalStream.ReadByte();
+
+                        Assert.AreEqual(orginalByte, finnalByte);
+                    }
+                }
+            }
+
+        }
+
+        [TestMethod()]
+        public void SmallFiles_CFB()
+        {
+            //Arrange
+            string filename = "Julian.jpg";
+            string file = Path.Combine(testPath, filename);
+
+            File.Copy(Path.Combine(resourcePath, filename), file);
+
+            var aes = new AesEncryptionApi(CipherMode.CFB, 128, 128);
+            aes.Initialize();
+
+            int orginalByte;
+            int finnalByte;
+
+            //Act
+
+            //Encrypte
+            using (var inputStream = File.OpenRead(file))
+            {
+                using (var cryptoStream = aes.EncrypteStream(inputStream, CryptoStreamMode.Read))
+                {
+                    using (var outputStream = File.OpenWrite(encryptedFile))
+                    {
+                        cryptoStream.CopyTo(outputStream);
+                    }
+                }
+            }
+
+            //Decrypte
+            using (var inputStream = File.OpenRead(encryptedFile))
+            {
+                using (var cryptoStream = aes.DecrypteStream(inputStream))
+                {
+                    using (var outputStream = File.OpenWrite(decryptedFile))
+                    {
+                        cryptoStream.CopyTo(outputStream);
+                    }
+                }
+            }
+
+            //Assert
+            using (var inputOrginalStream = File.OpenRead(file))
+            {
+                using (var inputFinnalStream = File.OpenRead(decryptedFile))
+                {
+                    Assert.AreEqual(inputOrginalStream.Length, inputFinnalStream.Length);
+
+                    while (inputOrginalStream.Position < inputOrginalStream.Length)
+                    {
+                        orginalByte = inputOrginalStream.ReadByte();
+                        finnalByte = inputFinnalStream.ReadByte();
+
+                        Assert.AreEqual(orginalByte, finnalByte);
+                    }
+                }
+            }
+
+        }
+
+        [TestMethod()]
+        public void SmallFiles_OFB()
+        {
+            //Arrange
+            string filename = "Julian.jpg";
+            string file = Path.Combine(testPath, filename);
+
+            File.Copy(Path.Combine(resourcePath, filename), file);
+
+            var aes = new AesEncryptionApi(CipherMode.OFB, 128, 128);
+            aes.Initialize();
+
+            int orginalByte;
+            int finnalByte;
+
+            //Act
+
+            //Encrypte
+            using (var inputStream = File.OpenRead(file))
+            {
+                using (var cryptoStream = aes.EncrypteStream(inputStream, CryptoStreamMode.Read))
+                {
+                    using (var outputStream = File.OpenWrite(encryptedFile))
+                    {
+                        cryptoStream.CopyTo(outputStream);
+                    }
+                }
+            }
+
+            //Decrypte
+            using (var inputStream = File.OpenRead(encryptedFile))
+            {
+                using (var cryptoStream = aes.DecrypteStream(inputStream))
                 {
                     using (var outputStream = File.OpenWrite(decryptedFile))
                     {
@@ -147,7 +266,7 @@ namespace BSK_Encryption.Encryption.Tests
 
             File.Copy(Path.Combine(resourcePath, filename), file);
 
-            var aes = new AesEncryptionApi(CipherMode.CBC, 128, 32);
+            var aes = new AesEncryptionApi(CipherMode.CBC, 128, 128);
             aes.Initialize();
 
             int orginalByte;
@@ -158,7 +277,7 @@ namespace BSK_Encryption.Encryption.Tests
             //Encrypte
             using (var inputStream = File.OpenRead(file))
             {
-                using (var cryptoStream = aes.EncrypteStream(inputStream, password, CryptoStreamMode.Read))
+                using (var cryptoStream = aes.EncrypteStream(inputStream, CryptoStreamMode.Read))
                 {
                     using (var outputStream = File.OpenWrite(encryptedFile))
                     {
@@ -170,7 +289,7 @@ namespace BSK_Encryption.Encryption.Tests
             //Decrypte
             using (var inputStream = File.OpenRead(encryptedFile))
             {
-                using (var cryptoStream = aes.DecrypteStream(inputStream, password))
+                using (var cryptoStream = aes.DecrypteStream(inputStream))
                 {
                     using (var outputStream = File.OpenWrite(decryptedFile))
                     {

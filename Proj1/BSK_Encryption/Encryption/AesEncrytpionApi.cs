@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BSK_Encryption.Encryption.OFB;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -30,6 +31,14 @@ namespace BSK_Encryption.Encryption
             this.keySize = keySize;
         }
 
+        public AesEncryptionApi(CipherMode ciphermode, int blockSize, int keySize, byte[] password)
+        {
+            this.cipherMode = ciphermode;
+            this.blockSize = blockSize;
+            this.keySize = keySize;
+            this.key = password;
+        }
+
         private AesEncryptionApi()
         {
         }
@@ -59,10 +68,10 @@ namespace BSK_Encryption.Encryption
             {
                 if (reader.NodeType == XmlNodeType.Element && reader.Name == "User")
                 {
-                        var user = User.FromXml(reader);
-                        aes.userList.Add(user);
+                    var user = User.FromXml(reader);
+                    aes.userList.Add(user);
                 }
-                else if(reader.NodeType == XmlNodeType.EndElement && reader.Name == "Header")
+                else if (reader.NodeType == XmlNodeType.EndElement && reader.Name == "Header")
                 {
                     break;
                 }
@@ -84,7 +93,7 @@ namespace BSK_Encryption.Encryption
             int result = GetDiskFreeSpaceW(info.Directory.Root.FullName, out sectorsPerCluster, out bytesPerSector, out dummy, out dummy);
             string basePassword = String.Format("l{0}ol{1}{2}{3}{4}{5}", DateTime.Now, dummy, sectorsPerCluster, bytesPerSector, result, info.Name);
 
-            key = GenerateByteArray(basePassword, keySize/8);
+            key = GenerateByteArray(basePassword, keySize / 8);
 
             iV = GenerateByteArray(basePassword.Reverse().ToString(), 16);
         }
@@ -101,7 +110,7 @@ namespace BSK_Encryption.Encryption
             var keyGenerator = new Rfc2898DeriveBytes(keypharse, Const.SALT, Iterations);
             return keyGenerator.GetBytes(size);
         }
-        
+
         /// <summary>
         /// Add user to the approved users.
         /// </summary>
@@ -111,7 +120,7 @@ namespace BSK_Encryption.Encryption
         {
             string userPath = Path.Combine(Const.KEY_FOLDER_PATH, Const.PUBLIC_KEY_FOLDER, name);
 
-            if (Directory.Exists(userPath) && this.key!=null)
+            if (Directory.Exists(userPath) && this.key != null)
             {
                 var user = new User(name);
                 user.StoreKey(this.key);
@@ -126,7 +135,7 @@ namespace BSK_Encryption.Encryption
         /// Write current object to file using xml standard.
         /// </summary>
         /// <param name="output">Opened xml output</param>
-        internal void WriteToXml(XmlWriter output)
+        public void WriteToXml(XmlWriter output)
         {
             output.WriteStartElement("Header");
 
@@ -153,23 +162,9 @@ namespace BSK_Encryption.Encryption
         /// </summary>
         /// <param name="stream">Input Stream</param>
         /// <returns>Encrypted Stream</returns>
-        public CryptoStream EncrypteStream(Stream stream)
+        public Stream EncrypteStream(Stream stream)
         {
-            var myAes = new RijndaelManaged();
-            myAes.Mode = cipherMode;
-            myAes.IV = iV;
-            myAes.KeySize = this.keySize;
-            myAes.Key = this.key;
-
-            if(cipherMode == CipherMode.CFB)
-            {
-                myAes.FeedbackSize = 8;
-                myAes.Padding = PaddingMode.None;
-            }
-
-            ICryptoTransform encryptor = myAes.CreateEncryptor();
-
-            return new CryptoStream(stream, encryptor, CryptoStreamMode.Read);
+            return EncrypteStream(stream, CryptoStreamMode.Read);
         }
 
         /// <summary>
@@ -177,23 +172,31 @@ namespace BSK_Encryption.Encryption
         /// </summary>
         /// <param name="stream">Input Stream</param>
         /// <returns>Encrypted Stream</returns>
-        public CryptoStream EncrypteStream(Stream stream, byte[] password, CryptoStreamMode mode)
+        public Stream EncrypteStream(Stream stream, CryptoStreamMode mode = CryptoStreamMode.Read)
         {
             var myAes = new RijndaelManaged();
-            myAes.Mode = cipherMode;
-            myAes.IV = new byte[16];
+
+            myAes.IV = this.iV == null ? new byte[16] : iV;
             myAes.KeySize = this.keySize;
-            myAes.Key = password;
-
-            if (cipherMode == CipherMode.CFB)
+            myAes.Key = this.key;
+            if (cipherMode != CipherMode.OFB)
             {
-                myAes.FeedbackSize = 8;
-                myAes.Padding = PaddingMode.None;
+                myAes.Mode = cipherMode;
+
+                if (cipherMode == CipherMode.CFB)
+                {
+                    myAes.FeedbackSize = 8;
+                    myAes.Padding = PaddingMode.None;
+                }
+
+                ICryptoTransform encryptor = myAes.CreateEncryptor();
+
+                return new CryptoStream(stream, encryptor, mode);
             }
-
-            ICryptoTransform encryptor = myAes.CreateEncryptor();
-
-            return new CryptoStream(stream, encryptor, mode);
+            else
+            {
+                return new OFBStream(stream, myAes, mode);
+            }
         }
 
         /// <summary>
@@ -203,32 +206,20 @@ namespace BSK_Encryption.Encryption
         /// <param name="userName">Username associated</param>
         /// <param name="keyPharse">keypharse for getting key private</param>
         /// <returns>Decrypte Stream</returns>
-        public CryptoStream DecrypteStream(Stream stream, string userName, string keyPharse)
+        public Stream DecrypteStream(Stream stream, string userName, string keyPharse)
         {
-            var myAes = new RijndaelManaged();
-            myAes.Mode = cipherMode;
-            myAes.IV = iV;
-            var user = (from u in userList
-                       where u.Name.Equals(userName)
-                       select u).FirstOrDefault();
 
-            if(user==null)
+            var user = (from u in userList
+                        where u.Name.Equals(userName)
+                        select u).FirstOrDefault();
+
+            if (user == null)
             {
                 throw new Exception("Wrong username");
             }
+            this.key = user.LoadKey(keyPharse);
 
-            myAes.KeySize = this.keySize;
-            myAes.Key = user.LoadKey(keyPharse);
-
-            if (cipherMode == CipherMode.CFB)
-            {
-                myAes.FeedbackSize = 8;
-                myAes.Padding = PaddingMode.None;
-            }
-
-            ICryptoTransform decryptor = myAes.CreateDecryptor();
-
-            return new CryptoStream(stream, decryptor, CryptoStreamMode.Read);
+            return DecrypteStream(stream);
         }
 
         /// <summary>
@@ -237,23 +228,30 @@ namespace BSK_Encryption.Encryption
         /// <param name="stream"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public CryptoStream DecrypteStream(Stream stream, byte[] password)
+        public Stream DecrypteStream(Stream stream, CryptoStreamMode mode = CryptoStreamMode.Read)
         {
             var myAes = new RijndaelManaged();
-            myAes.Mode = cipherMode;
-            myAes.IV = new byte [16];
+            myAes.IV = this.iV == null ? new byte[16] : iV;
             myAes.KeySize = this.keySize;
-            myAes.Key = password;
-
-            if (cipherMode == CipherMode.CFB)
+            myAes.Key = this.key;
+            if (cipherMode != CipherMode.OFB)
             {
-                myAes.FeedbackSize = 8;
-                myAes.Padding = PaddingMode.None;
+
+                myAes.Mode = cipherMode;
+                if (cipherMode == CipherMode.CFB)
+                {
+                    myAes.FeedbackSize = 8;
+                    myAes.Padding = PaddingMode.None;
+                }
+
+                ICryptoTransform decryptor = myAes.CreateDecryptor();
+
+                return new CryptoStream(stream, decryptor, mode);
             }
-
-            ICryptoTransform decryptor = myAes.CreateDecryptor();
-
-            return new CryptoStream(stream, decryptor, CryptoStreamMode.Read);
+            else
+            {
+                return new OFBStream(stream, myAes, mode);
+            }
         }
         #endregion
 

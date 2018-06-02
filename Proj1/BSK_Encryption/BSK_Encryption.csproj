@@ -57,6 +57,8 @@
     </ApplicationDefinition>
     <Compile Include="Const.cs" />
     <Compile Include="Encryption\Conversion.cs" />
+    <Compile Include="Encryption\OFB\OFBStream.cs" />
+    <Compile Include="Encryption\OFB\ZeroStream.cs" />
     <Compile Include="Encryption\RsaEncryptionApi.cs" />
     <Compile Include="Encryption\SHA256EncryptionApi.cs" />
     <Compile Include="ViewModels\NotifyPropertyChanged.cs" />

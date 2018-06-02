@@ -34,7 +34,7 @@ namespace BSK_Encryption.Encryption
             string privatePath = Path.Combine(Const.KEY_FOLDER_PATH, Const.PRIVATE_KEY_FOLDER, username);
             string privateKeyFile = Path.Combine(privatePath, Const.PRIVATE_KEY_FILENAME);
 
-            if(!File.Exists(privateKeyFile))
+            if (!File.Exists(privateKeyFile))
             {
                 throw new Exception("No user key");
             }
@@ -42,18 +42,18 @@ namespace BSK_Encryption.Encryption
             try
             {
 
-            using (var inputStream = File.OpenRead(privateKeyFile))
-            {
-                var aes = new AesEncryptionApi(CipherMode.CBC, 128, 256);
-                using (var streamdecrypted = aes.DecrypteStream(inputStream, keyPharse))
+                using (var inputStream = File.OpenRead(privateKeyFile))
                 {
-                    using (var input = new StreamReader(streamdecrypted))
+                    var aes = new AesEncryptionApi(CipherMode.CBC, 128, 256, keyPharse);
+                    using (var streamdecrypted = aes.DecrypteStream(inputStream))
                     {
-                        string inputText = input.ReadToEnd();
-                        rsa.FromXmlString(inputText);
+                        using (var input = new StreamReader(streamdecrypted))
+                        {
+                            string inputText = input.ReadToEnd();
+                            rsa.FromXmlString(inputText);
+                        }
                     }
                 }
-            }
 
             }
             catch (Exception)
@@ -69,7 +69,7 @@ namespace BSK_Encryption.Encryption
         /// </summary>
         /// <param name="username"></param>
         /// <param name="keyPharse"></param>
-        public static void GenerateKey(string username,byte[] keyPharse)
+        public static void GenerateKey(string username, byte[] keyPharse)
         {
             var rsa = new RSACryptoServiceProvider(4096);
             string publicPath = Path.Combine(Const.KEY_FOLDER_PATH, Const.PUBLIC_KEY_FOLDER, username);
@@ -99,8 +99,8 @@ namespace BSK_Encryption.Encryption
 
             using (var file = File.OpenWrite(privateKeyFile))
             {
-                var aes = new AesEncryptionApi(CipherMode.CBC, 128, 256);
-                using (var fileOutput = aes.EncrypteStream(file,keyPharse,CryptoStreamMode.Write))
+                var aes = new AesEncryptionApi(CipherMode.CBC, 128, 256, keyPharse);
+                using (var fileOutput = aes.EncrypteStream(file, CryptoStreamMode.Write))
                 {
                     using (var output = new StreamWriter(fileOutput))
                     {
@@ -109,7 +109,7 @@ namespace BSK_Encryption.Encryption
                     }
                 }
             }
-           
+
         }
     }
 }

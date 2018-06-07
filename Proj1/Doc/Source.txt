@@ -1,0 +1,5 @@
+https://msdn.microsoft.com/pl-pl/library/system.security.cryptography.rijndaelmanaged(v=vs.110).aspx RijandelManaged
+https://stackoverflow.com/questions/24515521/aes-ofb-encryption-for-rijndaelmanaged ofbstream
+https://pl.wikipedia.org/wiki/Advanced_Encryption_Standard
+Slajdy z wyk³adów BSK
+

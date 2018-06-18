@@ -30,5 +30,8 @@ namespace DataTemplates.DisplayData
         [StringLength(255)]
         public string Stanowisko { get; set; }
 
+        [DataMember]
+        public int? ID_Konto { get; set; }
+
     }
 }

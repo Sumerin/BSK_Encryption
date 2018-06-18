@@ -17,7 +17,7 @@ namespace Proj2
 {
     public static class Globals
     {
-        public static AccessServiceClient client=null;
+        public static AccessServiceClient client = null;
     }
     /// <summary>
     /// Logika interakcji dla klasy Login.xaml
@@ -36,14 +36,14 @@ namespace Proj2
                 Globals.client = new AccessServiceClient();
             }
             string accessType;
-            
 
-            if(!Globals.client.Login(login.Text, password.Password))
+
+            if (!Globals.client.Login(login.Text, password.Password))
             {
                 return;
             }
 
-            accessType=Globals.client.GetKonta().Where(c => c.Login == login.Text).Select(c=>c.Clear).First().ToString();
+            accessType = Globals.client.GetKonta().Where(c => c.Login == login.Text).Select(c => c.Clear).First().ToString();
 
             if (accessType.Equals("2") == true)
             {
@@ -114,6 +114,20 @@ namespace Proj2
             main.Show();
         }
 
-        
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            int cl=1;
+            if (Globals.client == null)
+            {
+                Globals.client = new AccessServiceClient();
+            }
+
+            if (login.Text[0] == 'q')
+                cl = 2;
+            if (login.Text[0] == 'z')
+                cl = 3;
+
+            Globals.client.Register(login.Text, password.Password, cl);
+        }
     }
 }

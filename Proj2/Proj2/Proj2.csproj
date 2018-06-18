@@ -165,6 +165,9 @@
     <None Include="Connected Services\ServiceReference1\AccesService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\ServiceReference1\AccesService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\ServiceReference1\AccessService.wsdl" />
     <None Include="Connected Services\ServiceReference1\Proj2.ServiceReference1.Klient.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>

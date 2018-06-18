@@ -10,10 +10,17 @@
         <Label Content="Dostępność" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top"/>
         <Label Content="Cena" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
         <Label Content="Nazwa" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <Button Content="Zapisz" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" Width="75"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="60,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="52,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="87,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Zapisz" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <TextBox x:Name="nam" HorizontalAlignment="Left" Height="23" Margin="60,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+        <TextBox x:Name="pri" HorizontalAlignment="Left" Height="23" Margin="52,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+        <TextBox x:Name="ava" HorizontalAlignment="Left" Height="23" Margin="87,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+        <Label Content="Tajność" HorizontalAlignment="Left" Margin="244,72,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="taj" HorizontalAlignment="Left" Margin="172,103,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBoxItem Content="Publiczny" HorizontalAlignment="Left" Width="118" IsSelected="True"/>
+            <ComboBoxItem Content="Poufny" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="Tajny" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="Ściśle tajny" HorizontalAlignment="Left" Width="118"/>
+        </ComboBox>
 
     </Grid>
 </Window>

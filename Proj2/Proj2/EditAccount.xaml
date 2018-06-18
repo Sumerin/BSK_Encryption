@@ -14,17 +14,17 @@
         <Label Content="Hasło" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top"/>
         <Label Content="Powtórz hasło" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top"/>
         <Label Content="Status" HorizontalAlignment="Left" Margin="10,196,0,0" VerticalAlignment="Top"/>
-        <Button Content="Zapisz" HorizontalAlignment="Left" Margin="10,258,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Zapisz" HorizontalAlignment="Left" Margin="10,258,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         <Label Content="Uprawnienia" HorizontalAlignment="Left" Margin="10,227,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="48,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="75,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="55,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="54,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="55,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="99,169,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <RadioButton Content="Pracownik" HorizontalAlignment="Left" Margin="57,202,0,0" VerticalAlignment="Top" />
+        <TextBox x:Name="im" HorizontalAlignment="Left" Height="23" Margin="48,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="naz" HorizontalAlignment="Left" Height="23" Margin="75,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="adr" HorizontalAlignment="Left" Height="23" Margin="55,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="log" HorizontalAlignment="Left" Height="23" Margin="54,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <PasswordBox x:Name="pas" HorizontalAlignment="Left" Height="23" Margin="55,138,0,0"  VerticalAlignment="Top" Width="120"/>
+        <PasswordBox x:Name="pasp" HorizontalAlignment="Left" Height="23" Margin="99,169,0,0"  VerticalAlignment="Top" Width="120"/>
+        <RadioButton x:Name="prac" Content="Pracownik" HorizontalAlignment="Left" Margin="57,202,0,0" VerticalAlignment="Top" />
         <RadioButton Content="Klient" HorizontalAlignment="Left" Margin="147,202,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <ComboBox HorizontalAlignment="Left" Margin="91,231,0,0" VerticalAlignment="Top" Width="120" >
+        <ComboBox x:Name="combo" HorizontalAlignment="Left" Margin="91,231,0,0" VerticalAlignment="Top" Width="120" >
             <ComboBoxItem Content="Publiczny" HorizontalAlignment="Left" Width="118" IsSelected="True"/>
             <ComboBoxItem Content="Poufny" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="Tajny" HorizontalAlignment="Left" Width="118"/>

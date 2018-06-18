@@ -18,7 +18,6 @@ namespace DataTemplates
 
         public int? Class_Stanowisko { get; set; }
 
-        public int? ID_Konto { get; set; }
 
         public int? Class { get; set; }
 

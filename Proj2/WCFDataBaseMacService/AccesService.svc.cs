@@ -34,6 +34,22 @@ namespace WCFDataBaseMacService
             this.md5Hash = md5Hash;
         }
 
+        private int GetID()
+        {
+            return konto.ID;
+        }
+
+        public int? GetClear()
+        {
+            return konto.Clear;
+        }
+
+        public int MyKlientId()
+        {
+            int id = GetID();
+            var person = ctx.Klient.Where(x => x.ID_Konto == id).First();
+            return person.ID;
+        }
 
         #region Interface
         public bool Login(string username, string password)
@@ -126,13 +142,174 @@ namespace WCFDataBaseMacService
                 .Restrict(ctx.zam_prod, RestrictReadZam_pod);
         }
 
-        public bool Register(string username, string password)
+        public bool Register(string username, string password, int clear)
         {
-            string hash = password+"a6s8d";
-            var konto = new DBKonto() { Login = username, Haslo = md5Hash.GetMD5Hash(hash), Salt = "a6s8d", Clear = 1,Class_Haslo=1,Class=1,Class_Login=1,Class_salt=1 };
+            string hash = password + "a6s8d";
+            var konto = new DBKonto() { Login = username, Haslo = md5Hash.GetMD5Hash(hash), Salt = "a6s8d", Clear = clear, Class_Haslo = 1, Class = 1, Class_Login = 1, Class_salt = 1 };
             ctx.Konto.Add(konto);
             ctx.SaveChanges();
+            int? id = ctx.Konto.Where(c => c.Login.Equals(username)).First().ID;
+            var kl = new DBKlient() { Imie = username, Nazwisko = username, Adres = username + " 11", Class_Adres = 1, Class_Imie = 1, Class_Nazwisko = 1, Class = 1, ID_Konto = id };
+            ctx.Klient.Add(kl);
+            DBPracownik p;
+            if (clear > 1)
+            {
+                p = new DBPracownik() { Imie = username, Nazwisko = username, Class_Imie = 1, Class_Nazwisko = 1, Class = 1, ID_Konto = id, Data_zaczecia = DateTime.Now, Class_Data_zaczecia = 1, Stanowisko = "Test", Class_Stanowisko = 1 };
+                ctx.Pracownik.Add(p);
+            }
+
+            ctx.SaveChanges();
             return true;
+        }
+
+        public bool SetZam(Zamowienia input, int[] classes)
+        {
+            if (this.konto == null)
+            {
+                return false;
+            }
+            DBZamowienia newOrder = new DBZamowienia()
+            {
+                ID_Klienta = input.ID_Klienta,
+                Data_zlozenia = input.Data_zlozenia,
+                Class_Data_zlozenia = classes[1],
+                Status = input.Status,
+                Class_Status = classes[0],
+                Class = classes[2]
+            };
+
+            if (Locker<DBZamowienia>.Lock(newOrder, LockWriteZamowienia))
+            {
+                ctx.Zamowienia.Add(newOrder);
+                ctx.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public bool SetZam_prody(zam_prod input, int[] classes)
+        {
+            if (this.konto == null)
+            {
+                return false;
+            }
+            DBzam_prod newProdOrd = new DBzam_prod()
+            {
+                ID_Produkt = input.ID_Produkt,
+                ID_Zamowienia = input.ID_Zamowienia,
+                Ilosc = input.Ilosc,
+                Class_Ilosc = classes[0],
+                Class = classes[1]
+            };
+
+            if (Locker<DBzam_prod>.Lock(newProdOrd, LockWriteZam_prod))
+            {
+                ctx.zam_prod.Add(newProdOrd);
+                ctx.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public bool SetProdukt(Produkt input, int[] classes)
+        {
+            if (this.konto == null)
+            {
+                return false;
+            }
+            DBProdukt newProd = new DBProdukt()
+            {
+                Nazwa = input.Nazwa,
+                Class_Nazwa = classes[0],
+                Cena = input.Cena,
+                Class_Cena = classes[1],
+                Dostepnosc = input.Dostepnosc,
+                Class_Dostepnosc = classes[2],
+                Class = classes[3]
+            };
+
+            if (Locker<DBProdukt>.Lock(newProd, LockWriteProdukt))
+            {
+                ctx.Produkt.Add(newProd);
+                ctx.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public bool SetKonto(Konto input, int[] classes, string pass)
+        {
+            if (this.konto == null)
+            {
+                return false;
+            }
+            string hash = pass + "a6s8d";
+            DBKonto newKon = new DBKonto() { Login = input.Login, Haslo = md5Hash.GetMD5Hash(hash), Salt = "a6s8d", Clear = input.Clear, Class_Haslo = classes[1], Class = classes[3], Class_Login = classes[0], Class_salt = classes[2] };
+
+            if (Locker<DBKonto>.Lock(newKon, LockWriteKonta))
+            {
+                ctx.Konto.Add(newKon);
+                ctx.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+
+        public bool SetKlient(Klient input, int[] classes)
+        {
+            if (this.konto == null)
+            {
+                return false;
+            }
+            DBKlient newKli = new DBKlient()
+            {
+                Imie = input.Imie,
+                Class_Imie = classes[0],
+                Nazwisko = input.Nazwisko,
+                Class_Nazwisko = classes[1],
+                Adres = input.Adres,
+                Class_Adres = classes[2],
+                ID_Konto=input.ID_Konto,
+                Class = classes[3]
+            };
+
+            if (Locker<DBKlient>.Lock(newKli, LockWriteKlient))
+            {
+                ctx.Klient.Add(newKli);
+                ctx.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public bool SetPracownik(Pracownik input, int[] classes)
+        {
+            if (this.konto == null)
+            {
+                return false;
+            }
+            DBPracownik newPra = new DBPracownik()
+            {
+                Imie = input.Imie,
+                Class_Imie = classes[0],
+                Nazwisko = input.Nazwisko,
+                Class_Nazwisko = classes[1],
+                Data_zaczecia = input.Data_zaczecia,
+                Class_Data_zaczecia = classes[2],
+                Stanowisko=input.Stanowisko,
+                Class_Stanowisko=classes[3],
+                ID_Konto = input.ID_Konto,
+                Class = classes[4]
+            };
+
+            if (Locker<DBPracownik>.Lock(newPra, LockWritePracownik))
+            {
+                ctx.Pracownik.Add(newPra);
+                ctx.SaveChanges();
+                return true;
+            }
+            return false;
         }
         #endregion
 
@@ -166,6 +343,7 @@ namespace WCFDataBaseMacService
                 resultClient.Imie = IsRead(client.Class_Imie, clear) ? client.Imie : null;
                 resultClient.Nazwisko = IsRead(client.Class_Nazwisko, clear) ? client.Nazwisko : null;
                 resultClient.Adres = IsRead(client.Class_Adres, clear) ? client.Adres : null;
+                resultClient.ID_Konto = client.ID_Konto;
 
                 return resultClient;
             }
@@ -190,7 +368,22 @@ namespace WCFDataBaseMacService
 
         private Pracownik RestrictReadPracownik(DBPracownik worker)
         {
-            throw new NotImplementedException();
+            int? clear = this.konto.Clear;
+            var resultPracownik = new Pracownik();
+
+            if (IsRead(worker.Class, clear))
+            {
+                resultPracownik.ID = worker.ID;
+                resultPracownik.Imie = IsRead(worker.Class_Imie, clear) ? worker.Imie : null;
+                resultPracownik.Nazwisko = IsRead(worker.Class_Nazwisko, clear) ? worker.Nazwisko : null;
+                resultPracownik.Stanowisko = IsRead(worker.Class_Stanowisko, clear) ? worker.Stanowisko : null;
+                resultPracownik.Data_zaczecia = IsRead(worker.Class_Data_zaczecia, clear) ? worker.Data_zaczecia : null;
+                resultPracownik.ID_Konto = worker.ID_Konto;
+
+
+                return resultPracownik;
+            }
+            return null;
         }
 
         private Produkt RestrictReadProdukt(DBProdukt product)
@@ -243,6 +436,116 @@ namespace WCFDataBaseMacService
         }
         #endregion
         #region WriteUpAccess
+        bool IsWrite(int? Class, int? clear)
+        {
+            int cla = Class != null ? (int)Class : 0;
+            int cle = clear != null ? (int)clear : 0;
+            return cla >= cle;
+        }
+
+        private bool LockWriteKonta(DBKonto input)
+        {
+            int? clear = this.konto.Clear;
+            if (IsWrite(input.Class, clear))
+            {
+                if (!IsWrite(input.Class_Haslo, clear))
+                    return false;
+                if (!IsWrite(input.Class_Login, clear))
+                    return false;
+                if (!IsWrite(input.Class_salt, clear))
+                    return false;
+                return true;
+
+            }
+
+            return false;
+        }
+
+        private bool LockWriteKlient(DBKlient input)
+        {
+            int? clear = this.konto.Clear;
+            if (IsWrite(input.Class, clear))
+            {
+                if (!IsWrite(input.Class_Adres, clear))
+                    return false;
+                if (!IsWrite(input.Class_Imie, clear))
+                    return false;
+                if (!IsWrite(input.Class_Nazwisko, clear))
+                    return false;
+                return true;
+
+            }
+
+            return false;
+        }
+
+        private bool LockWritePracownik(DBPracownik input)
+        {
+            int? clear = this.konto.Clear;
+            if (IsWrite(input.Class, clear))
+            {
+                if (!IsWrite(input.Class_Data_zaczecia, clear))
+                    return false;
+                if (!IsWrite(input.Class_Imie, clear))
+                    return false;
+                if (!IsWrite(input.Class_Nazwisko, clear))
+                    return false;
+                if (!IsWrite(input.Class_Stanowisko, clear))
+                    return false;
+                return true;
+
+            }
+
+            return false;
+        }
+
+        private bool LockWriteProdukt(DBProdukt input)
+        {
+            int? clear = this.konto.Clear;
+            if (IsWrite(input.Class, clear))
+            {
+                if (!IsWrite(input.Class_Cena, clear))
+                    return false;
+                if (!IsWrite(input.Class_Dostepnosc, clear))
+                    return false;
+                if (!IsWrite(input.Class_Nazwa, clear))
+                    return false;
+                return true;
+
+            }
+
+            return false;
+        }
+
+        private bool LockWriteZamowienia(DBZamowienia input)
+        {
+            int? clear = this.konto.Clear;
+            if (IsWrite(input.Class, clear))
+            {
+                if (!IsWrite(input.Class_Status, clear))
+                    return false;
+                if (!IsWrite(input.Class_Data_zlozenia, clear))
+                    return false;
+                return true;
+
+            }
+
+            return false;
+        }
+
+        private bool LockWriteZam_prod(DBzam_prod input)
+        {
+            int? clear = this.konto.Clear;
+            if (IsWrite(input.Class, clear))
+            {
+                if (!IsWrite(input.Class_Ilosc, clear))
+                    return false;
+                return true;
+
+            }
+
+            return false;
+        }
         #endregion
         #endregion
     }

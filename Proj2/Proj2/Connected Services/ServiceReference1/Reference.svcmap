@@ -22,11 +22,12 @@
     <MetadataSource Address="http://localhost:60789/AccesService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="AccesService.xsd" MetadataType="Schema" ID="3b341cc7-9ac6-42f1-8a65-98d6f4562239" SourceId="1" SourceUrl="http://localhost:60789/AccesService.svc?xsd=xsd2" />
     <MetadataFile FileName="AccesService1.xsd" MetadataType="Schema" ID="8e0321cd-0292-485b-b246-8fa3ff362a8a" SourceId="1" SourceUrl="http://localhost:60789/AccesService.svc?xsd=xsd0" />
-    <MetadataFile FileName="AccesService.disco" MetadataType="Disco" ID="727a3e51-9f43-4b30-bca3-fa90d04308c3" SourceId="1" SourceUrl="http://localhost:60789/AccesService.svc?disco" />
-    <MetadataFile FileName="AccesService2.xsd" MetadataType="Schema" ID="d0014904-3ce2-4761-af66-57b41dd28b4c" SourceId="1" SourceUrl="http://localhost:60789/AccesService.svc?xsd=xsd1" />
     <MetadataFile FileName="AccessService.wsdl" MetadataType="Wsdl" ID="8c6a060d-3169-4262-bad6-ce4b405e2f44" SourceId="1" SourceUrl="http://localhost:60789/AccesService.svc?wsdl" />
+    <MetadataFile FileName="AccesService3.xsd" MetadataType="Schema" ID="64f7af71-e05c-4c88-8770-3a2bd682339c" SourceId="1" SourceUrl="http://localhost:60789/AccesService.svc?xsd=xsd3" />
+    <MetadataFile FileName="AccesService2.xsd" MetadataType="Schema" ID="d0014904-3ce2-4761-af66-57b41dd28b4c" SourceId="1" SourceUrl="http://localhost:60789/AccesService.svc?xsd=xsd1" />
+    <MetadataFile FileName="AccesService.xsd" MetadataType="Schema" ID="3b341cc7-9ac6-42f1-8a65-98d6f4562239" SourceId="1" SourceUrl="http://localhost:60789/AccesService.svc?xsd=xsd2" />
+    <MetadataFile FileName="AccesService.disco" MetadataType="Disco" ID="727a3e51-9f43-4b30-bca3-fa90d04308c3" SourceId="1" SourceUrl="http://localhost:60789/AccesService.svc?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

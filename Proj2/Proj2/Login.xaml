@@ -13,6 +13,7 @@
         <Label  Content="Hasło" HorizontalAlignment="Left" Margin="68,141,0,0" VerticalAlignment="Top"/>
         <PasswordBox x:Name="password" HorizontalAlignment="Left" Margin="68,172,0,0" VerticalAlignment="Top" Width="120"/>
         <Button Content="Zaloguj" HorizontalAlignment="Left" Margin="113,216,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Content="Rejsetruj" HorizontalAlignment="Left" Margin="10,216,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
 
     </Grid>
 </Window>

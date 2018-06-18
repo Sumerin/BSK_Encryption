@@ -27,5 +27,8 @@ namespace DataTemplates.DisplayData
         [DataMember]
         public string Adres { get; set; }
 
+        [DataMember]
+        public int? ID_Konto { get; set; }
+
     }
 }

@@ -21,4 +21,12 @@ namespace WCFDataBaseMacService
             return result;
         }
     }
+
+    public static class Locker<Src>
+    {
+        public static bool Lock(Src input, Func<Src, bool> restrictFunction)
+        {
+            return restrictFunction(input);
+        }
+    }
 }

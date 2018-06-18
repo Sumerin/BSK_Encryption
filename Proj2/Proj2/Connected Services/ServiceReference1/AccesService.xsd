@@ -10,6 +10,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Adres" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_Konto" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Imie" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nazwisko" nillable="true" type="xs:string" />
     </xs:sequence>
@@ -39,6 +40,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Data_zaczecia" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_Konto" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Imie" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nazwisko" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Stanowisko" nillable="true" type="xs:string" />

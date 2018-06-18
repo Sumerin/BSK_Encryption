@@ -29,6 +29,9 @@ namespace Proj2.ServiceReference1 {
         private int IDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> ID_KontoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImieField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -66,6 +69,19 @@ namespace Proj2.ServiceReference1 {
                 if ((this.IDField.Equals(value) != true)) {
                     this.IDField = value;
                     this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> ID_Konto {
+            get {
+                return this.ID_KontoField;
+            }
+            set {
+                if ((this.ID_KontoField.Equals(value) != true)) {
+                    this.ID_KontoField = value;
+                    this.RaisePropertyChanged("ID_Konto");
                 }
             }
         }
@@ -199,6 +215,9 @@ namespace Proj2.ServiceReference1 {
         private int IDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> ID_KontoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImieField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -239,6 +258,19 @@ namespace Proj2.ServiceReference1 {
                 if ((this.IDField.Equals(value) != true)) {
                     this.IDField = value;
                     this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> ID_Konto {
+            get {
+                return this.ID_KontoField;
+            }
+            set {
+                if ((this.ID_KontoField.Equals(value) != true)) {
+                    this.ID_KontoField = value;
+                    this.RaisePropertyChanged("ID_Konto");
                 }
             }
         }
@@ -566,10 +598,10 @@ namespace Proj2.ServiceReference1 {
         System.Threading.Tasks.Task<bool> LoginAsync(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/Register", ReplyAction="http://tempuri.org/IAccessService/RegisterResponse")]
-        bool Register(string username, string password);
+        bool Register(string username, string password, int clear);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/Register", ReplyAction="http://tempuri.org/IAccessService/RegisterResponse")]
-        System.Threading.Tasks.Task<bool> RegisterAsync(string username, string password);
+        System.Threading.Tasks.Task<bool> RegisterAsync(string username, string password, int clear);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/GetKlienty", ReplyAction="http://tempuri.org/IAccessService/GetKlientyResponse")]
         Proj2.ServiceReference1.Klient[] GetKlienty();
@@ -606,6 +638,54 @@ namespace Proj2.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/GetZamowienia", ReplyAction="http://tempuri.org/IAccessService/GetZamowieniaResponse")]
         System.Threading.Tasks.Task<Proj2.ServiceReference1.Zamowienia[]> GetZamowieniaAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/MyKlientId", ReplyAction="http://tempuri.org/IAccessService/MyKlientIdResponse")]
+        int MyKlientId();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/MyKlientId", ReplyAction="http://tempuri.org/IAccessService/MyKlientIdResponse")]
+        System.Threading.Tasks.Task<int> MyKlientIdAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/GetClear", ReplyAction="http://tempuri.org/IAccessService/GetClearResponse")]
+        System.Nullable<int> GetClear();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/GetClear", ReplyAction="http://tempuri.org/IAccessService/GetClearResponse")]
+        System.Threading.Tasks.Task<System.Nullable<int>> GetClearAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/SetZam", ReplyAction="http://tempuri.org/IAccessService/SetZamResponse")]
+        bool SetZam(Proj2.ServiceReference1.Zamowienia input, int[] classes);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/SetZam", ReplyAction="http://tempuri.org/IAccessService/SetZamResponse")]
+        System.Threading.Tasks.Task<bool> SetZamAsync(Proj2.ServiceReference1.Zamowienia input, int[] classes);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/SetZam_prody", ReplyAction="http://tempuri.org/IAccessService/SetZam_prodyResponse")]
+        bool SetZam_prody(Proj2.ServiceReference1.zam_prod input, int[] classes);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/SetZam_prody", ReplyAction="http://tempuri.org/IAccessService/SetZam_prodyResponse")]
+        System.Threading.Tasks.Task<bool> SetZam_prodyAsync(Proj2.ServiceReference1.zam_prod input, int[] classes);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/SetProdukt", ReplyAction="http://tempuri.org/IAccessService/SetProduktResponse")]
+        bool SetProdukt(Proj2.ServiceReference1.Produkt input, int[] classes);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/SetProdukt", ReplyAction="http://tempuri.org/IAccessService/SetProduktResponse")]
+        System.Threading.Tasks.Task<bool> SetProduktAsync(Proj2.ServiceReference1.Produkt input, int[] classes);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/SetKonto", ReplyAction="http://tempuri.org/IAccessService/SetKontoResponse")]
+        bool SetKonto(Proj2.ServiceReference1.Konto input, int[] classes, string pass);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/SetKonto", ReplyAction="http://tempuri.org/IAccessService/SetKontoResponse")]
+        System.Threading.Tasks.Task<bool> SetKontoAsync(Proj2.ServiceReference1.Konto input, int[] classes, string pass);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/SetKlient", ReplyAction="http://tempuri.org/IAccessService/SetKlientResponse")]
+        bool SetKlient(Proj2.ServiceReference1.Klient input, int[] classes);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/SetKlient", ReplyAction="http://tempuri.org/IAccessService/SetKlientResponse")]
+        System.Threading.Tasks.Task<bool> SetKlientAsync(Proj2.ServiceReference1.Klient input, int[] classes);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/SetPracownik", ReplyAction="http://tempuri.org/IAccessService/SetPracownikResponse")]
+        bool SetPracownik(Proj2.ServiceReference1.Pracownik input, int[] classes);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccessService/SetPracownik", ReplyAction="http://tempuri.org/IAccessService/SetPracownikResponse")]
+        System.Threading.Tasks.Task<bool> SetPracownikAsync(Proj2.ServiceReference1.Pracownik input, int[] classes);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -643,12 +723,12 @@ namespace Proj2.ServiceReference1 {
             return base.Channel.LoginAsync(username, password);
         }
         
-        public bool Register(string username, string password) {
-            return base.Channel.Register(username, password);
+        public bool Register(string username, string password, int clear) {
+            return base.Channel.Register(username, password, clear);
         }
         
-        public System.Threading.Tasks.Task<bool> RegisterAsync(string username, string password) {
-            return base.Channel.RegisterAsync(username, password);
+        public System.Threading.Tasks.Task<bool> RegisterAsync(string username, string password, int clear) {
+            return base.Channel.RegisterAsync(username, password, clear);
         }
         
         public Proj2.ServiceReference1.Klient[] GetKlienty() {
@@ -697,6 +777,70 @@ namespace Proj2.ServiceReference1 {
         
         public System.Threading.Tasks.Task<Proj2.ServiceReference1.Zamowienia[]> GetZamowieniaAsync() {
             return base.Channel.GetZamowieniaAsync();
+        }
+        
+        public int MyKlientId() {
+            return base.Channel.MyKlientId();
+        }
+        
+        public System.Threading.Tasks.Task<int> MyKlientIdAsync() {
+            return base.Channel.MyKlientIdAsync();
+        }
+        
+        public System.Nullable<int> GetClear() {
+            return base.Channel.GetClear();
+        }
+        
+        public System.Threading.Tasks.Task<System.Nullable<int>> GetClearAsync() {
+            return base.Channel.GetClearAsync();
+        }
+        
+        public bool SetZam(Proj2.ServiceReference1.Zamowienia input, int[] classes) {
+            return base.Channel.SetZam(input, classes);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SetZamAsync(Proj2.ServiceReference1.Zamowienia input, int[] classes) {
+            return base.Channel.SetZamAsync(input, classes);
+        }
+        
+        public bool SetZam_prody(Proj2.ServiceReference1.zam_prod input, int[] classes) {
+            return base.Channel.SetZam_prody(input, classes);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SetZam_prodyAsync(Proj2.ServiceReference1.zam_prod input, int[] classes) {
+            return base.Channel.SetZam_prodyAsync(input, classes);
+        }
+        
+        public bool SetProdukt(Proj2.ServiceReference1.Produkt input, int[] classes) {
+            return base.Channel.SetProdukt(input, classes);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SetProduktAsync(Proj2.ServiceReference1.Produkt input, int[] classes) {
+            return base.Channel.SetProduktAsync(input, classes);
+        }
+        
+        public bool SetKonto(Proj2.ServiceReference1.Konto input, int[] classes, string pass) {
+            return base.Channel.SetKonto(input, classes, pass);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SetKontoAsync(Proj2.ServiceReference1.Konto input, int[] classes, string pass) {
+            return base.Channel.SetKontoAsync(input, classes, pass);
+        }
+        
+        public bool SetKlient(Proj2.ServiceReference1.Klient input, int[] classes) {
+            return base.Channel.SetKlient(input, classes);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SetKlientAsync(Proj2.ServiceReference1.Klient input, int[] classes) {
+            return base.Channel.SetKlientAsync(input, classes);
+        }
+        
+        public bool SetPracownik(Proj2.ServiceReference1.Pracownik input, int[] classes) {
+            return base.Channel.SetPracownik(input, classes);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SetPracownikAsync(Proj2.ServiceReference1.Pracownik input, int[] classes) {
+            return base.Channel.SetPracownikAsync(input, classes);
         }
     }
 }

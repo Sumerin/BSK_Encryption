@@ -24,8 +24,9 @@ namespace Proj2
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public float Price { get; set; }
-        public int Availability { get; set; }
+        public decimal? Price { get; set; }
+        public int? Availability { get; set; }
+        public int Number { get; set; }
     }
 
     public class OrderedProduct
@@ -54,35 +55,22 @@ namespace Proj2
         public MainWindow()
         {
             InitializeComponent();
-            List<Produkt> dboProducts = Globals.client.GetProdkuty().ToList<Produkt>();
-            foreach(Produkt product in dboProducts)
-            {
-                products.Items.Add(product);
-            }
-            List<Zamowienia> dboOrders = Globals.client.GetZamowienia().ToList<Zamowienia>();
-            foreach(Zamowienia z in dboOrders)
-            {
-
-                var klienty = Globals.client.GetKlienty().Where(c => c.ID == z.ID_Klienta).FirstOrDefault();
-                Order o = new Order { Id = z.ID,Client=klienty.Imie + " " + klienty.Nazwisko,Adress=klienty.Adres, State = z.Status.ToString(), Products = new List<OrderedProduct>() };
-                var lista = Globals.client.GetZam_prody().Where(c => c.ID_Zamowienia == z.ID).ToList<zam_prod>();
-                foreach(zam_prod e in lista)
-                {
-                    var prod = dboProducts.Where(c => c.ID == e.ID_Produkt).FirstOrDefault<Produkt>();
-                    o.Products.Add(new OrderedProduct { Id = prod.ID, Name = prod.Nazwa, Price = prod.Cena, Number = e.Ilosc });
-                }
-                orders.Items.Add(o);
-            }
+            Reload(null, null);
         }
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
             TextBox t = sender as TextBox;
-            Produkt p = t.DataContext as Produkt;
-            int? avail = p.Dostepnosc;
+            Product p = t.DataContext as Product;
+            int? avail = p.Availability;
             int num = Int32.Parse(t.Text+e.Text);
             e.Handled = !(avail >= num);
+            if (e.Handled == false)
+            {
+                p.Number = num;
+                CountBasketPrice();
+            }
         }
 
         private void DodajDoKoszyka(object sender, RoutedEventArgs e)
@@ -91,24 +79,48 @@ namespace Proj2
             if (basket.Items.Contains(b.DataContext)==false)
             {
                 int index=basket.Items.Add(b.DataContext);
+                CountBasketPrice();
             }
                 
         }
 
+        private void CountBasketPrice()
+        {
+            decimal? sum = 0;
+            foreach (Product p in basket.Items)
+            {
+                sum += p.Price * p.Number;                
+            }
+            suma.Content = sum.ToString();
+        }
+
         private void ShowEdit(object sender, RoutedEventArgs e)
         {
-            EditOrder edit = new EditOrder();
+            Order o = ((FrameworkElement)sender).DataContext as Order;
+            EditOrder edit = new EditOrder(o);
             edit.Show();
         }
 
         private void ClearBasket(object sender, RoutedEventArgs e)
         {
             basket.Items.Clear();
+            suma.Content = (0m).ToString();
         }
 
         private void AddOrder(object sender, RoutedEventArgs e)
         {
+            Zamowienia order = new Zamowienia() { Status = 1, Data_zlozenia = DateTime.Now, ID_Klienta = Globals.client.MyKlientId() };
+            Globals.client.SetZam(order, new int[] { 1, 1, 1 });
 
+            var or = Globals.client.GetZamowienia().Last();
+
+            foreach(Product p in basket.Items)
+            {
+                zam_prod z = new zam_prod() { ID_Produkt = p.Id, ID_Zamowienia = or.ID, Ilosc = p.Number };
+                Globals.client.SetZam_prody(z,new int[] { 1, 1 });
+            }
+
+            ClearBasket(sender,e);
             
         }
 
@@ -123,6 +135,53 @@ namespace Proj2
                 {
                     orderProducts.Items.Add(or);
                 }
+            }
+        }
+
+        private void Reload(object sender, RoutedEventArgs e)
+        {
+            products.Items.Clear();
+            List<Produkt> dboProducts = Globals.client.GetProdkuty().ToList<Produkt>();
+            foreach (Produkt product in dboProducts)
+            {
+                Product pro = new Product();
+                pro.Id = product.ID;
+                pro.Name = product.Nazwa;
+                pro.Price = product.Cena;
+                pro.Availability = product.Dostepnosc;
+                pro.Number = 0;
+                products.Items.Add(pro);
+            }
+            orders.Items.Clear();
+            orderProducts.Items.Clear();
+            List<Zamowienia> dboOrders = Globals.client.GetZamowienia().ToList<Zamowienia>();
+            foreach (Zamowienia z in dboOrders)
+            {
+
+                var klienty = Globals.client.GetKlienty().Where(c => c.ID == z.ID_Klienta).FirstOrDefault();
+                Order o = new Order { Id = z.ID, Client = klienty.Imie + " " + klienty.Nazwisko, Adress = klienty.Adres, State = z.Status.ToString(), Products = new List<OrderedProduct>() };
+                var lista = Globals.client.GetZam_prody().Where(c => c.ID_Zamowienia == z.ID).ToList<zam_prod>();
+                foreach (zam_prod er in lista)
+                {
+                    var prod = dboProducts.Where(c => c.ID == er.ID_Produkt).FirstOrDefault<Produkt>();
+                    o.Products.Add(new OrderedProduct { Id = prod.ID, Name = prod.Nazwa, Price = prod.Cena, Number = er.Ilosc });
+                }
+                orders.Items.Add(o);
+            }
+        }
+        private void Search(object sender, RoutedEventArgs e)
+        {
+            products.Items.Clear();
+            List<Produkt> dboProducts = Globals.client.GetProdkuty().Where(c => c.Nazwa.Contains(srec.Text)).ToList<Produkt>();
+            foreach (Produkt product in dboProducts)
+            {
+                Product pro = new Product();
+                pro.Id = product.ID;
+                pro.Name = product.Nazwa;
+                pro.Price = product.Cena;
+                pro.Availability = product.Dostepnosc;
+                pro.Number = 0;
+                products.Items.Add(pro);
             }
         }
     }

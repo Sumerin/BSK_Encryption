@@ -13,14 +13,14 @@
         <DataTemplate x:Key="Basket">
             <Button Content="Dodaj do koszyka" Click="DodajDoKoszyka" />
         </DataTemplate>
-        <DataTemplate x:Key="EditProd">
-            <Button Content="Edytuj" Click="EditProduct" />
-        </DataTemplate>
         <DataTemplate x:Key="Delete">
             <Button Content="Usuń" />
         </DataTemplate>
         <DataTemplate x:Key="Edit">
             <Button Content="Edytuj" Click="ShowEdit" />
+        </DataTemplate>
+        <DataTemplate x:Key="EditProd">
+            <Button Content="Edytuj" Click="EditProduct" />
         </DataTemplate>
     </Window.Resources>
     <Grid>
@@ -28,7 +28,11 @@
             <TabItem Header="Produkty">
                 <Grid Background="#FFE5E5E5">
                     <Grid HorizontalAlignment="Left" Height="321" Margin="10,10,0,0" VerticalAlignment="Top" Width="569">
-                        <ListView x:Name="products" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="569">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="155*"/>
+                            <ColumnDefinition Width="414*"/>
+                        </Grid.ColumnDefinitions>
+                        <ListView x:Name="products" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="569" Grid.ColumnSpan="2">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
@@ -37,15 +41,14 @@
                                     <GridViewColumn Header="Dostępność" DisplayMemberBinding="{Binding Availability}"/>
                                     <GridViewColumn Header="Ilość" CellTemplate="{StaticResource Number}"/>
                                     <GridViewColumn Header="" CellTemplate="{StaticResource Basket}"/>
-                                    <GridViewColumn Header="" CellTemplate="{StaticResource EditProd}"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>
                     </Grid>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="621,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="srec" HorizontalAlignment="Left" Height="23" Margin="621,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <Label Content="Wpisz szukany produkt" HorizontalAlignment="Left" Margin="621,8,0,0" VerticalAlignment="Top" Width="138"/>
-                    <Button Content="Szukaj" HorizontalAlignment="Left" Margin="639,64,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button Content="Dodaj Produkt" HorizontalAlignment="Left" Margin="639,106,0,0" VerticalAlignment="Top" Width="88"/>
+                    <Button Content="Szukaj" HorizontalAlignment="Left" Margin="639,64,0,0" VerticalAlignment="Top" Width="75" Click="Search"/>
+                    <Button Content="Dodaj Produkt" HorizontalAlignment="Left" Margin="639,106,0,0" VerticalAlignment="Top" Width="88" Click="Button_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Zamówienia">
@@ -58,7 +61,6 @@
                                     <GridViewColumn Header="Klient" DisplayMemberBinding="{Binding Client}"/>
                                     <GridViewColumn Header="Adres" DisplayMemberBinding="{Binding Adress}"/>
                                     <GridViewColumn Header="Stan" DisplayMemberBinding="{Binding State}"/>
-                                    <GridViewColumn Header="" CellTemplate="{StaticResource Edit}"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>
@@ -96,11 +98,13 @@
                             </ListView.View>
                         </ListView>
                     </Grid>
-                    <Button Content="Złóż zamówienie" HorizontalAlignment="Left" Margin="527.972,11,0,0" VerticalAlignment="Top" Width="111" Grid.Column="1"/>
+                    <Button Content="Złóż zamówienie" HorizontalAlignment="Left" Margin="527.972,11,0,0" VerticalAlignment="Top" Width="111" Grid.Column="1" Click="AddOrder"/>
                     <Button Content="Wyczyść" HorizontalAlignment="Left" Margin="543.972,36,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="ClearBasket"/>
-                    <Label Content="Suma: " HorizontalAlignment="Left" Margin="507.972,109,0,0" VerticalAlignment="Top" Height="24" Width="131" Grid.Column="1"/>
+                    <Label  Content="Suma: " HorizontalAlignment="Left" Margin="508,109,0,0" VerticalAlignment="Top" Height="24" Width="41" Grid.Column="1"/>
+                    <Label x:Name="suma" Content="0" Grid.Column="1" HorizontalAlignment="Left" Margin="568,107,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
         </TabControl>
+        <Button Content="Odśwież" HorizontalAlignment="Left" Margin="608,1,0,0" VerticalAlignment="Top" Width="75" Click="Reload"/>
     </Grid>
 </Window>
